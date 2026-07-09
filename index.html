@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मातृभूमि सेवा संस्थान | महा डिजिटल पोर्टल</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #f4f6f9; color: #333; padding-bottom: 50px; }
+
+        /* Top Govt Style Bar */
+        .top-bar { background-color: #0d47a1; color: white; padding: 10px; text-align: center; font-weight: bold; position: relative; font-size: 13px; }
+        .menu-bar-btn { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        
+        /* Govt Registration Details Header Bar */
+        .govt-details-bar { background: #fff3cd; text-align: center; padding: 6px; font-size: 12px; font-weight: bold; border-bottom: 1px solid #ff9800; display: flex; justify-content: space-around; flex-wrap: wrap; }
+
+        header { background: #fff; padding: 20px; text-align: center; border-bottom: 5px solid #ff9800; }
+        .logo-section h1 { color: #b71c1c; font-size: 28px; font-weight: 900; }
+        .logo-section p { color: #002147; font-size: 14px; font-weight: bold; margin-top: 4px; }
+        .header-slogan { font-style: italic; color: #555; font-size: 13px; margin-top: 8px; font-weight: bold; }
+
+        .dynamic-logo-box { width: 90px; height: 90px; background: #eaedf1; border: 2px dashed #0d47a1; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 11px; }
+        .dynamic-logo-box img { width: 100%; height: 100%; object-fit: contain; }
+        
+        /* Side Hamburger Menu */
+        .side-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #b71c1c; z-index: 9999; transition: 0.3s; padding-top: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
+        .side-menu.open { left: 0; }
+        .menu-slogan { background: #ff9800; color: #000; padding: 10px; margin: 10px; text-align: center; font-weight: bold; border-radius: 4px; font-size: 13px; border-left: 4px solid #fff; }
+        .side-menu button { display: block; width: 100%; padding: 15px; background: none; border: none; color: white; text-align: left; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .side-menu button:hover { background: #ff9800; color: #000; }
+        .side-menu button.active { background: #0d47a1; color: white; }
+        .menu-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9998; display: none; }
+        .menu-backdrop.show { display: block; }
+
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+        
+        /* Two Column Content Layout for Notice Board */
+        .main-portal-layout { display: grid; grid-template-columns: 3fr 1fr; gap: 20px; }
+        @media (max-width: 900px) {
+            .main-portal-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Side Notice Board Styling */
+        .side-notice-board { background: white; border: 1px solid #ddd; border-top: 4px solid #b71c1c; border-radius: 6px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); height: fit-content; }
+        .side-notice-board h2 { font-size: 16px; color: #b71c1c; border-bottom: 2px solid #ff9800; padding-bottom: 6px; margin-bottom: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        .notice-container { max-height: 450px; overflow-y: auto; padding-right: 5px; }
+        .notice-item { padding: 10px 0; border-bottom: 1px dashed #eee; font-size: 12px; line-height: 1.5; }
+        .notice-item:last-child { border-bottom: none; }
+        .notice-tag { background: #b71c1c; color: white; font-size: 9px; font-weight: bold; padding: 2px 4px; border-radius: 3px; display: inline-block; margin-bottom: 4px; animation: blinker 1.5s linear infinite; }
+        .notice-download-link { display: inline-block; color: #0d47a1; font-weight: bold; margin-top: 5px; text-decoration: none; font-size: 11px; }
+        .notice-download-link:hover { text-decoration: underline; color: #b71c1c; }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Quick Direct Registration Alert Link Box */
+        .quick-register-box { background: #e3f2fd; border-left: 5px solid #0d47a1; padding: 15px; margin-bottom: 20px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .quick-register-box p { font-size: 14px; font-weight: bold; color: #002147; }
+        .quick-link-btn { background: #0d47a1; color: white; border: none; padding: 8px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; text-decoration: none; font-size: 13px; }
+        .quick-link-btn:hover { background: #b71c1c; }
+
+        /* VIP Profile Grid */
+        .vip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .leader-card { background: white; padding: 10px; text-align: center; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #0d47a1; }
+        .leader-img-box { width: 90px; height: 110px; background: #eaedf1; margin: 0 auto 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; }
+        .leader-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .leader-card h4 { color: #b71c1c; font-size: 13px; margin-bottom: 2px; }
+        .leader-card p { font-size: 10px; color: #002147; font-weight: bold; }
+
+        /* Banner Slider */
+        .slider-container { width: 100%; height: 320px; background: #e0e0e0; border: 2px solid #fff; overflow: hidden; position: relative; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .slider-slide { width: 100%; height: 100%; display: none; justify-content: center; align-items: center; background: #fafafa; position: absolute; top:0; left:0; }
+        .slider-slide.active { display: flex; }
+        .slider-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 12 Services Layout */
+        .services-title { color: #b71c1c; font-size: 20px; font-weight: bold; margin: 20px 0 15px; text-align: center; border-bottom: 2px solid #ff9800; padding-bottom: 5px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .service-card { background: white; border: 1px solid #ddd; border-top: 4px solid #0d47a1; border-radius: 6px; padding: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #0d47a1; }
+        .service-card h3 { color: #b71c1c; font-size: 15px; margin-bottom: 8px; background: #f0f4f8; padding: 6px; border-radius: 4px; font-weight: bold; }
+        
+        .scheme-img-container { width: 100%; height: 140px; background: #eaedf1; margin-bottom: 10px; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #777; border: 1px solid #ccc; }
+        .scheme-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .service-card p { font-size: 12px; color: #555; line-height: 1.4; margin-bottom: 12px; font-weight: 500; text-align: justify; }
+        .service-apply-btn { background: #ff9800; color: black; border: none; padding: 8px 12px; font-weight: bold; font-size: 13px; border-radius: 4px; cursor: pointer; width: 100%; transition: 0.2s; }
+        .service-apply-btn:hover { background: #138808; color: white; }
+
+        /* Portal Sections */
+        .portal-section { background: white; padding: 20px; border-top: 4px solid #ff9800; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .portal-section h2 { color: #0d47a1; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #eee; padding-bottom: 8px; }
+        
+        .admin-upload-panel { background: #fff3cd; border: 2px dashed #ff9800; padding: 15px; border-radius: 6px; margin-bottom: 20px; }
+        .admin-upload-panel h3 { color: #b71c1c; font-size: 15px; margin-bottom: 10px; }
+        .upload-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+        .upload-item { background: white; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .upload-item input { margin-top: 4px; width: 100%; }
+        .id-change-box { background: white; padding: 12px; margin-top: 15px; border-radius: 4px; border: 1px solid #ddd; }
+
+        .name-edit-box { background: #f9f9f9; padding: 10px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc; }
+        .name-edit-box label { font-size: 11px; color: #333; display: block; margin-bottom: 4px; }
+        .name-edit-box input { width: 100%; padding: 5px; font-size: 12px; margin-bottom: 6px; border: 1px solid #aaa; border-radius: 3px; }
+
+        /* Unlimited Slider Management Styling */
+        .admin-slider-list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; background: white; padding: 10px; border-radius: 4px; border: 1px solid #ddd; }
+        .admin-slider-thumb { position: relative; width: 80px; height: 60px; border: 1px solid #ccc; border-radius: 3px; overflow: hidden; }
+        .admin-slider-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .admin-slider-thumb .del-btn { position: absolute; top: 0; right: 0; background: rgba(183,28,28,0.9); color: white; border: none; font-size: 10px; padding: 2px 5px; cursor: pointer; border-radius: 0 0 0 4px; }
+
+        /* User Logged State UI */
+        .user-welcome-bar { background: #e8f5e9; padding: 12px; border: 1px solid #2e7d32; color: #2e7d32; font-weight: bold; font-size: 14px; border-radius: 4px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .logout-user-btn { background: #b71c1c; color: white; border: none; padding: 4px 10px; border-radius: 3px; font-size: 12px; cursor: pointer; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; }
+        .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .btn-submit { background: #b71c1c; color: white; padding: 12px 20px; border: none; cursor: pointer; font-weight: bold; width: 100%; border-radius: 4px; font-size: 16px; text-align: center; }
+
+        /* Tables and status */
+        .table-responsive { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 13px; vertical-align: middle; }
+        th { background-color: #0d47a1; color: white; }
+        
+        .status-Pending { color: #ff9800; font-weight: bold; background: #fff3cd; padding: 2px 6px; border-radius: 3px; }
+        .status-Approved { color: #2e7d32; font-weight: bold; background: #e8f5e9; padding: 2px 6px; border-radius: 3px; }
+        .status-Rejected { color: #b71c1c; font-weight: bold; background: #ffebee; padding: 2px 6px; border-radius: 3px; }
+        
+        .btn-approve { background: #2e7d32; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 3px; font-weight: bold; font-size: 12px; margin-right: 4px; }
+        .btn-reject { background: #b71c1c; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 3px; font-weight: bold; font-size: 12px; }
+        .thumb-preview { width: 50px; height: 50px; object-fit: cover; border: 1px solid #ccc; border-radius: 4px; }
+
+        .hidden { display: none !important; }
+        footer { background: #002147; color: white; padding: 20px; text-align: center; font-size: 12px; margin-top: 30px; line-height: 1.8; }
+        .footer-bank-info { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 4px; margin: 10px auto; max-width: 500px; border: 1px dashed rgba(255,255,255,0.3); }
+        
+        /* Dynamic Notice Board Form Elements */
+        .admin-notice-row { display: flex; gap: 10px; background: white; padding: 8px; margin-bottom: 8px; border-radius: 4px; border: 1px solid #ddd; align-items: center; }
+        .admin-notice-row input { padding: 5px; font-size: 12px; border: 1px solid #ccc; border-radius: 3px; }
+        .btn-action-red { background: #b71c1c; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="menu-bar-btn" onclick="toggleMenu()">☰</button>
+        मातृभूमि सेवा संस्थान | लाइव ट्रैकिंग एवं महा नियंत्रण डेटाबेस बोर्ड
+    </div>
+
+    <div class="govt-details-bar">
+        <span><b>CIN No:</b> U88900UP2026NPL247547</span>
+        <span><b>DARPAN ID:</b> UP/2026/1080829</span>
+    </div>
+
+    <div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+    <div class="side-menu" id="sideMenu">
+        <div style="color:white; padding:10px 20px; text-align:right; font-weight:bold;"><button onclick="toggleMenu()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button></div>
+        <div class="menu-slogan">🚩 लगाकर भूखे को दावत खिलाया।</div>
+        <div class="side-menu-links">
+            <button id="btn-tab-public" class="active" onclick="switchView('public')">👥 होम और सेवाएं</button>
+            <button id="btn-tab-register" onclick="switchView('register')">📝 नया पंजीकरण / आवेदन</button>
+            <button id="btn-tab-track" onclick="switchView('track')">🔍 स्थिति जांचें (Track)</button>
+            <button id="btn-tab-officer" onclick="switchView('officer')">🔐 अधिकारी पैनल (Officer)</button>
+            <button id="btn-tab-admin" onclick="switchView('admin')">🛠️ मास्टर एडमिन पैनल (Admin)</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-section">
+            <div class="dynamic-logo-box" id="main-logo-container">[ मुख्य लोगो ]</div>
+            <h1>मातृभूमि सेवा संस्थान</h1>
+            <p>जन कल्याण, रोजगार एवं सामाजिक विकास पोर्टल, उत्तर प्रदेश</p>
+            <div class="header-slogan">"हाथ जो सेवा के लिये उठते हैं, वे प्रार्थना करने वाले होठों से कहीं अधिक पवित्र होते हैं।"</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="quick-register-box" id="quickRegisterBox">
+            <p>📢 क्या आप किसी भी कल्याणकारी योजना का लाभ लेना चाहते हैं? तुरंत अपना डिजिटल रजिस्ट्रेशन फॉर्म भरें।</p>
+            <button class="quick-link-btn" onclick="openDirectRegistrationForm()">📝 यहाँ से आवेदन करें (ऑनलाइन फॉर्म)</button>
+        </div>
+
+        <div class="vip-grid">
+            <div class="leader-card"><div class="leader-img-box" id="box-pm">[ PM फोटो ]</div><h4>श्री नरेंद्र मोदी</h4><p>माननीय प्रधानमंत्री</p></div>
+            <div class="leader-card"><div class="leader-img-box" id="box-cm">[ CM फोटो ]</div><h4>योगी आदित्यनाथ</h4><p>माननीय मुख्यमंत्री</p></div>
+            <div class="leader-card" style="border-top-color: #138808;"><div class="leader-img-box" id="box-district-pres">[ जिला अध्यक्ष फोटो ]</div><h4 id="lbl-district-pres">माननीय जिला अध्यक्ष</h4><p>जिला संगठन प्रमुख</p></div>
+            <div class="leader-card" style="border-top-color: #fce4ec;"><div class="leader-img-box" id="box-sec">[ सचिव फोटो ]</div><h4 id="lbl-sec">संस्था सचिव</h4><p>राष्ट्रीय सचिव</p></div>
+            <div class="leader-card"><div class="leader-img-box" id="box-pres">[ अध्यक्ष फोटो ]</div><h4>नीरज कुमार निषाद</h4><p>राष्ट्रीय अध्यक्ष / संस्थापक</p></div>
+            <div class="leader-card" style="border-top-color: #ff9800;"><div class="leader-img-box" id="box-media-head">[ मीडिया फोटो ]</div><h4 id="lbl-media-head">प्रदेश सोशल मीडिया प्रमुख</h4><p>सोशल मीडिया प्रभारी</p></div>
+        </div>
+
+        <div class="slider-container" id="sliderContainer">
+            <div style="color: #555; text-align: center; padding: 20px; font-weight: bold;" id="sliderPlaceholder">
+                [संस्था के कार्यों की फोटो एडमिन पैनल से अपलोड करें, वे यहाँ घूमने लगेंगी]
+            </div>
+        </div>
+
+        <div class="main-portal-layout">
+            
+            <div class="left-content-area">
+                
+                <div id="view-public" class="view-section">
+                    <div class="services-title">🚩 हमारी सेवाएं एवं कल्याणकारी योजनाएं 🚩</div>
+                    <div class="services-grid">
+                        
+                        <div class="service-card">
+                            <h3>1. पर्यावरण संरक्षण क्षेत्र</h3>
+                            <div class="scheme-img-container" id="img-env">[ पर्यावरण फोटो ]</div>
+                            <p>वृक्षारोपण अभियान, जल संरक्षण और बंजर भूमि को हरा-भरा बनाने के लिए संस्था निरंतर ग्रामीण स्तर पर जागरूकता और सुरक्षा कार्यक्रम आयोजित करती है।</p>
+                            <button class="service-apply-btn" onclick="directApply('पर्यावरण संरक्षण क्षेत्र')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card">
+                            <h3>2. आधुनिक एवं डिजिटल शिक्षा</h3>
+                            <div class="scheme-img-container" id="img-edu">[ शिक्षा फोटो ]</div>
+                            <p>ग्रामीण व पिछड़े वर्ग के बच्चों को मुफ्त कंप्यूटर शिक्षा, स्कूल किट वितरण और मेधावी छात्र-छात्राओं को छात्रवृत्ति की सुविधा प्रदान की जाती है।</p>
+                            <button class="service-apply-btn" onclick="directApply('आधुनिक एवं डिजिटल शिक्षा')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card">
+                            <h3>3. स्वरोजगार एवं कौशल विकास</h3>
+                            <div class="scheme-img-container" id="img-emp">[ रोजगार फोटो ]</div>
+                            <p>युवाओं और महिलाओं को सिलाई, कढ़ाई, अगरबत्ती निर्माण और लघु उद्योग प्रशिक्षण देकर आत्मनिर्भर एवं आर्थिक रूप से सुदृढ़ बनाया जाता है।</p>
+                            <button class="service-apply-btn" onclick="directApply('स्वरोजगार एवं कौशल विकास')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card">
+                            <h3>4. स्वास्थ्य और चिकित्सा सेवा</h3>
+                            <div class="scheme-img-container" id="img-health">[ स्वास्थ्य फोटो ]</div>
+                            <p>समय-समय पर निःशुल्क चिकित्सा शिविर, रक्तदान कार्यक्रम और गरीब परिवारों को आपातकालीन स्वास्थ्य सहायता एवं दवाइयां उपलब्ध कराई जाती हैं।</p>
+                            <button class="service-apply-btn" onclick="directApply('स्वास्थ्य और चिकित्सा सेवा')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card" style="border-top-color: #ff9800;">
+                            <h3>5. समस्त सरकारी योजनाएं लिंक</h3>
+                            <div class="scheme-img-container" id="img-gov">[ सरकारी योजनाएं बैनर ]</div>
+                            <p>आयुष्मान भारत, आवास योजना, किसान सम्मान निधि सहित केंद्र व राज्य सरकार की सभी कल्याणकारी योजनाओं की जानकारी और सीधे सहायता डेस्क।</p>
+                            <button class="service-apply-btn" onclick="directApply('समस्त सरकारी योजनाएं लिंक')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card">
+                            <h3>6. सार्वजनिक स्थान विकास</h3>
+                            <div class="scheme-img-container" id="img-pub">[ सार्वजनिक स्थान फोटो ]</div>
+                            <p>ग्रामीण क्षेत्रों में सार्वजनिक चौपालों, पेयजल व्यवस्था, और सामुदायिक स्वच्छता स्थलों के सुदृढ़ीकरण एवं मरम्मत का कार्य किया जाता है।</p>
+                            <button class="service-apply-btn" onclick="directApply('सार्वजनिक स्थान विकास')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card">
+                            <h3>7. उन्नत कृषि एवं किसान कल्याण</h3>
+                            <div class="scheme-img-container" id="img-agri">[ कृषि क्षेत्र फोटो ]</div>
+                            <p>किसानों को आधुनिक कृषि यंत्रों, जैविक खाद के उपयोग और उन्नत बीजों की जानकारी देकर उनकी आय बढ़ाने के लिए मार्गदर्शन सत्र आयोजित करना।</p>
+                            <button class="service-apply-btn" onclick="directApply('उन्नत कृषि एवं किसान कल्याण')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card">
+                            <h3>8. गरीब कन्या सामूहिक विवाह</h3>
+                            <div class="scheme-img-container" id="img-marriage">[ कन्या विवाह फोटो ]</div>
+                            <p>आर्थिक रूप से कमजोर परिवारों की बेटियों के विवाह हेतु संस्था सामूहिक विवाह मंडपों के जरिए दान-सामग्री और वित्तीय सहायता सुनिश्चित कराती है।</p>
+                            <button class="service-apply-btn" onclick="directApply('गरीब कन्या सामूहिक विवाह')">आवेदन करें</button>
+                        </div>
+
+                        <div class="service-card">
+                    <h3>9. निःशुल्क कानूनी सहायता</h3>
+                    <div class="scheme-img-container" id="img-law">[ कानूनी सहायता फोटो ]</div>
+                    <p>शोषित, असहाय और वंचित वर्ग के लोगों को न्याय दिलाने के लिए वरिष्ठ अधिवक्ताओं के माध्यम से मुफ्त विधिक सलाह एवं परामर्श शिविर।</p>
+                    <button class="service-apply-btn" onclick="directApply('निःशुल्क कानूनी सहायता')">आवेदन करें</button>
+                </div>
+
+                <div class="service-card">
+                    <h3>10. अनाथ बच्चे कल्याण विभाग</h3>
+                    <div class="scheme-img-container" id="img-orphan">[ अनाथ कल्याण फोटो ]</div>
+                    <p>अनाथ व बेसहारा बच्चों के रहने, खाने, उच्च शिक्षा और बेहतर भविष्य के लिए संस्था 'आधार अनाथालय' प्रोजेक्ट के तहत पूर्ण संरक्षण देती है।</p>
+                    <button class="service-apply-btn" onclick="directApply('अनाथ बच्चे कल्याण विभाग')">आवेदन करें</button>
+                </div>
+
+                <div class="service-card">
+                    <h3>11. वृद्धा आश्रम सेवा प्रोजेक्ट</h3>
+                    <div class="scheme-img-container" id="img-oldage">[ वृद्धा आश्रम फोटो ]</div>
+                    <p>संकल्प वृद्धाश्रम के माध्यम से बेसहारा बुजुर्गों को 'घर जैसा वातावरण', सम्मानजनक जीवन, पौष्टिक भोजन और चिकित्सा देखभाल दी जाती है।</p>
+                    <button class="service-apply-btn" onclick="directApply('वृद्धा आश्रम सेवा प्रोजेक्ट')">आवेदन करें</button>
+                </div>
+
+                <div class="service-card">
+                    <h3>12. प्राकृतिक आपदा राहत दल</h3>
+                    <div class="scheme-img-container" id="img-disaster">[ प्राकृतिक आपदा फोटो ]</div>
+                    <p>बाढ़, सूखा, आगजनी या किसी भी प्राकृतिक विभीषिका के समय संस्था का त्वरित राहत दल भोजन, कपड़े और आवश्यक सामग्री पहुंचाने का काम करता है।</p>
+                    <button class="service-apply-btn" onclick="directApply('प्राकृतिक आपदा राहत दल')">आवेदन करें</button>
+                </div>
+                    </div>
+                </div>
+
+                <div id="view-register" class="view-section hidden">
+                    <div class="portal-section">
+                        <h2>📝 नई सेवा / योजना के लिए ऑनलाइन आवेदन पत्र</h2>
+                        <form id="schemeApplicationForm" onsubmit="handleFormSubmit(event)">
+                            <div class="form-group">
+                                <label>चयनित योजना / विभाग का नाम:</label>
+                                <select id="form-scheme-select" required>
+                                    <option value="">-- योजना चुनें --</option>
+                                    <option value="पर्यावरण संरक्षण क्षेत्र">1. पर्यावरण संरक्षण क्षेत्र</option>
+                                    <option value="आधुनिक एवं डिजिटल शिक्षा">2. आधुनिक एवं डिजिटल शिक्षा</option>
+                                    <option value="स्वरोजगार एवं कौशल विकास">3. स्वरोजगार एवं कौशल विकास</option>
+                                    <option value="स्वास्थ्य और चिकित्सा सेवा">4. स्वास्थ्य और चिकित्सा सेवा</option>
+                                    <option value="समस्त सरकारी योजनाएं लिंक">5. समस्त सरकारी योजनाएं लिंक</option>
+                                    <option value="सार्वजनिक स्थान विकास">6. सार्वजनिक स्थान विकास</option>
+                                    <option value="उन्नत कृषि एवं किसान कल्याण">7. उन्नत कृषि एवं किसान कल्याण</option>
+                                    <option value="गरीब कन्या सामूहिक विवाह">8. गरीब कन्या सामूहिक विवाह</option>
+                                    <option value="निःशुल्क कानूनी सहायता">9. निःशुल्क कानूनी सहायता</option>
+                                    <option value="अनाथ बच्चे कल्याण विभाग">10. अनाथ बच्चे कल्याण विभाग</option>
+                                    <option value="वृद्धा आश्रम सेवा प्रोजेक्ट">11. वृद्धा आश्रम सेवा प्रोजेक्ट</option>
+                                    <option value="प्राकृतिक आपदा राहत दल">12. प्राकृतिक आपदा राहत दल</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>आवेदक का पूरा नाम:</label>
+                                <input type="text" id="form-user-name" placeholder="अपना नाम लिखें" required>
+                            </div>
+                            <div class="form-group">
+                                <label>पिता/पति का नाम:</label>
+                                <input type="text" id="form-user-guardian" placeholder="पिता या पति का नाम लिखें" required>
+                            </div>
+                            <div class="form-group">
+                                <label>मोबाइल नंबर:</label>
+                                <input type="tel" id="form-user-phone" pattern="[0-9]{10}" placeholder="10 अंकों का मोबाइल नंबर" required>
+                            </div>
+                            <div class="form-group">
+                                <label>पूरा स्थायी पता:</label>
+                                <input type="text" id="form-user-address" placeholder="ग्राम/शहर, पोस्ट, जिला, राज्य" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>अपलोड किए जाने वाले दस्तावेज़ का प्रकार चुनें:</label>
+                                <select id="form-doc-type" required>
+                                    <option value="">-- दस्तावेज़ प्रकार चुनें --</option>
+                                    <option value="आधार कार्ड">1. आधार कार्ड</option>
+                                    <option value="बैंक पासबुक">2. बैंक पासबुक</option>
+                                    <option value="स्वप्रमाण पत्र ग्राम">3. स्वप्रमाण पत्र ग्राम</option>
+                                    <option value="प्रधान द्वारा प्रमाणित पत्र">4. प्रधान द्वारा प्रमाणित पत्र</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" style="background: #f9f9f9; padding: 12px; border: 1px dashed #b71c1c; border-radius: 4px;">
+                                <label style="color: #b71c1c;">📁 चयनित दस्तावेज़ की फाइल अपलोड करें (फोटो चुनें):</label>
+                                <input type="file" id="form-user-doc" accept="image/*" onchange="previewUserDocument(event)" required style="margin-bottom: 8px;">
+                                <div id="userDocPreviewBox" class="hidden" style="margin-top: 10px;">
+                                    <p style="font-size: 11px; font-weight: bold; color: #2e7d32; margin-bottom: 4px;">✔ अपलोडेड दस्तावेज़ का प्रीव्यू:</p>
+                                    <img id="userDocPreviewImg" src="" style="max-width: 150px; max-height: 150px; border: 1px solid #ccc; border-radius: 4px; object-fit: contain;">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">🚀 डिजिटल आवेदन सबमिट करें</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="view-track" class="view-section hidden">
+                    <div class="portal-section">
+                        <h2>🔍 अपने आवेदन की वास्तविक स्थिति (Live Tracking) जांचें</h2>
+                        <div class="form-group" style="display: flex; gap: 10px;">
+                            <input type="text" id="track-search-id" placeholder="अपनी आवेदक आईडी दर्ज करें (उदा. MB-1001)" style="flex: 1;">
+                            <button onclick="trackApplicationStatus()" style="background:#0d47a1; color:white; border:none; padding:10px 20px; font-weight:bold; border-radius:4px; cursor:pointer;">खोजें</button>
+                        </div>
+                        <div id="trackResultBox" class="hidden" style="margin-top: 15px; padding: 15px; border-radius: 4px; background: #f9f9f9; border-left: 5px solid #0d47a1;">
+                            </div>
+                    </div>
+                </div>
+
+                <div id="view-officer" class="view-section hidden">
+                    <div class="portal-section" id="officerLoginFormBox">
+                        <h2>🔐 विभागीय अधिकारी लॉगिन पैनल (Officer Database Only)</h2>
+                        <p style="font-size: 12px; font-weight: bold; color: #555; margin-bottom: 12px;">📢 नोट: पब्लिक यूजर द्वारा अप्लाई किए गए समस्त जोन फॉर्म केवल इसी पैनल पर दिखाई देंगे।</p>
+                        <div class="form-group">
+                            <label>अधिकारी आईडी (Officer ID):</label>
+                            <input type="text" id="officer-user-input" placeholder="Officer ID दर्ज करें">
+                        </div>
+                        <div class="form-group">
+                            <label>सुरक्षा पासवर्ड (Password):</label>
+                            <input type="password" id="officer-pass-input" placeholder="पासवर्ड दर्ज करें">
+                        </div>
+                        <button class="btn-submit" onclick="loginOfficer()">सत्यापित करें एवं प्रवेश करें</button>
+                    </div>
+                    
+                    <div id="officerMainDashboard" class="hidden">
+                        <div class="user-welcome-bar">
+                            <span>🔐 आप 'अधिकारी महा नियंत्रण डेटाबेस' के अंदर लॉग इन हैं।</span>
+                            <button class="logout-user-btn" onclick="logoutOfficer()">लॉगआउट करें</button>
+                        </div>
+                        
+                        <div class="table-responsive" style="background: white; padding: 15px; border-radius: 6px; border-top: 4px solid #0d47a1;">
+                            <h4 style="color:#0d47a1; margin-bottom: 12px;">📋 पब्लिक यूजर द्वारा अप्लाई किए गए आवेदनों की लाइव सूची:</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>आवेदक आईडी</th>
+                                        <th>नाम</th>
+                                        <th>योजना / विभाग</th>
+                                        <th>मोबाइल</th>
+                                        <th>दस्तावेज़ प्रकार</th>
+                                        <th>दस्तावेज़ फ़ाइल</th>
+                                        <th>स्थिति</th>
+                                        <th>कार्रवाई</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminApplicationsTable">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-admin" class="view-section hidden">
+                    <div class="portal-section" id="masterAdminLoginFormBox">
+                        <h2>🛠️ मास्टर नियंत्रण एडमिन लॉगिन पैनल (Website Layout Customizer)</h2>
+                        <p style="font-size: 12px; font-weight: bold; color: #c62828; margin-bottom: 12px;">🚨 चेतावनी: यह पैनल केवल वेबसाइट डिजाइन, फोटो, नोटिस बोर्ड और लॉगिन आईडी बदलने के लिए है।</p>
+                        <div class="form-group">
+                            <label>मास्टर एडमिन आईडी (Admin ID):</label>
+                            <input type="text" id="admin-user-input" placeholder="Admin ID दर्ज करें">
+                        </div>
+                        <div class="form-group">
+                            <label>सुरक्षा पासवर्ड (Password):</label>
+                            <input type="password" id="admin-pass-input" placeholder="पासवर्ड दर्ज करें">
+                        </div>
+                        <button class="btn-submit" onclick="loginMasterAdmin()">मास्टर कस्टमाइज़र लॉगिन करें</button>
+                    </div>
+
+                    <div id="masterAdminDashboard" class="hidden">
+                        <div class="user-welcome-bar" style="background: #fff3e0; border-color: #ff9800; color: #e65100;">
+                            <span>🛠️ आप 'मास्टर एडमिन डिज़ाइनर कस्टमाइज़र' मोड में हैं।</span>
+                            <button class="logout-user-btn" onclick="logoutMasterAdmin()">लॉगआउट करें</button>
+                        </div>
+
+                        <div class="id-change-box" style="background: #e8f5e9; border: 1px solid #4caf50; margin-bottom: 15px;">
+                            <h4 style="color: #1b5e20;">🔑 1. मास्टर एडमिन लॉगिन आईडी-पासवर्ड कस्टमाइज़ करें:</h4>
+                            <div style="display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap;">
+                                <input type="text" id="new-admin-user" placeholder="नया एडमिन यूज़रनेम" style="padding:6px; font-size:13px; width:45%; min-width:150px;">
+                                <input type="text" id="new-admin-pass" placeholder="नया एडमिन पासवर्ड" style="padding:6px; font-size:13px; width:45%; min-width:150px;">
+                                <button onclick="updateAdminCredentials()" style="background:#2e7d32; color:white; border:none; padding:8px 12px; border-radius:3px; cursor:pointer; font-size:12px; font-weight:bold;">सेव एडमिन क्रेडेंशियल</button>
+                            </div>
+                        </div>
+
+                        <div class="id-change-box" style="background: #e3f2fd; border: 1px solid #2196f3; margin-bottom: 15px;">
+                            <h4 style="color: #0d47a1;">🔑 2. ऑफिस अधिकारी (Officer) लॉगिन आईडी-पासवर्ड कस्टमाइज़ करें:</h4>
+                            <div style="display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap;">
+                                <input type="text" id="new-officer-user" placeholder="नया अधिकारी यूज़रनेम" style="padding:6px; font-size:13px; width:45%; min-width:150px;">
+                                <input type="text" id="new-officer-pass" placeholder="नया अधिकारी पासवर्ड" style="padding:6px; font-size:13px; width:45%; min-width:150px;">
+                                <button onclick="updateOfficerCredentials()" style="background:#0d47a1; color:white; border:none; padding:8px 12px; border-radius:3px; cursor:pointer; font-size:12px; font-weight:bold;">सेव अधिकारी क्रेडेंशियल</button>
+                            </div>
+                        </div>
+
+                        <div class="name-edit-box" style="background: #fff8e1; border: 1px solid #ffa000; margin-bottom: 15px;">
+                            <h4 style="font-size:14px; color:#b71c1c; margin-bottom:10px;">📌 लाइव नोटिस बोर्ड मैनेजर (नोटिस डालें और हटाएँ):</h4>
+                            <div id="adminNoticeListFields">
+                                </div>
+                            <button onclick="addNewNoticeField()" style="background:#ffa000; color:black; font-weight:bold; padding:8px 15px; border:none; border-radius:4px; cursor:pointer; font-size:12px; margin-top:5px;">➕ नया नोटिस जोड़ें</button>
+                        </div>
+
+                        <div class="admin-upload-panel">
+                            <div class="upload-grid">
+                                <div class="upload-item" style="background:#e3f2fd;">🏢 मुख्य वेबसाइट लोगो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'main-logo-container')"></div>
+                                <div class="upload-item">👤 प्रधानमंत्री फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-pm')"></div>
+                                <div class="upload-item">👤 मुख्यमंत्री फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-cm')"></div>
+                            </div>
+
+                            <div class="name-edit-box">
+                                <h4 style="font-size:13px; color:#0d47a1; margin-bottom:8px;">📝 पदाधिकारियों के लाइव नाम एवं फोटो एडिटर पैनल:</h4>
+                                <div class="upload-grid" style="margin-bottom:10px;">
+                                    <div class="upload-item" style="background:#e8f5e9;">
+                                        📸 जिला अध्यक्ष फोटो बदलें:
+                                        <input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-district-pres')">
+                                        <label style="margin-top:6px;">✍️ जिला अध्यक्ष का नया नाम:</label>
+                                        <input type="text" id="input-district-pres" placeholder="नाम लिखें / हटाएँ" oninput="updateLeaderName('district-pres', this.value)">
+                                    </div>
+                                    <div class="upload-item" style="background:#fce4ec;">
+                                        📸 संस्था सचिव फोटो बदलें:
+                                        <input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-sec')">
+                                        <label style="margin-top:6px;">✍️ संस्था सचिव का नया नाम:</label>
+                                        <input type="text" id="input-sec" placeholder="नाम लिखें / हटाएँ" oninput="updateLeaderName('sec', this.value)">
+                                    </div>
+                                    <div class="upload-item" style="background:#fff3cd;">
+                                        📸 सोशल मीडिया प्रमुख फोटो:
+                                        <input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-media-head')">
+                                        <label style="margin-top:6px;">✍️ सोशल मीडिया प्रमुख नाम:</label>
+                                        <input type="text" id="input-media-head" placeholder="नाम लिखें / हटाएँ" oninput="updateLeaderName('media-head', this.value)">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 style="font-size:12px; color:#b71c1c; margin:15px 0 5px 0;">🖼️ सभी 12 योजनाओं की तस्वीरें यहाँ से बदलें:</h4>
+                            <div class="upload-grid">
+                                <div class="upload-item">🌳 1. पर्यावरण क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-env')"></div>
+                                <div class="upload-item">💻 2. शिक्षा क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-edu')"></div>
+                                <div class="upload-item">👔 3. रोजगार क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-emp')"></div>
+                                <div class="upload-item">🏥 4. स्वास्थ्य क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-health')"></div>
+                                <div class="upload-item" style="background:#fffde7;">🏛️ 5. सरकारी योजनाएं:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-gov')"></div>
+                                <div class="upload-item">⛲ 6. सार्वजनिक स्थान:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-pub')"></div>
+                                <div class="upload-item">🌾 7. कृषि क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-agri')"></div>
+                                <div class="upload-item">🤝 8. कन्या विवाह:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-marriage')"></div>
+                                <div class="upload-item">⚖️ 9. कानूनी सहायता:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-law')"></div>
+                                <div class="upload-item">👶 10. अनाथ कल्याण:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-orphan')"></div>
+                                <div class="upload-item">👴 11. वृद्धा आश्रम:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-oldage')"></div>
+                                <div class="upload-item">🌋 12. प्राकृतिक आपदा:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-disaster')"></div>
+                            </div>
+
+                            <div class="upload-grid" style="margin-top:10px;">
+                                <div class="upload-item">👤 अध्यक्ष फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-pres')"></div>
+                            </div>
+
+                            <div class="upload-item" style="margin-top: 10px; background: #e8f5e9;">
+                                📸 <b>इच्छानुसार जितनी चाहें उतनी रोटेशन स्लाइडर फोटो जोड़ें (Unlimited Upload):</b>
+                                <input type="file" accept="image/*" multiple onchange="appendSliderPhotos(event)">
+                                <div class="admin-slider-list" id="adminSliderThumbsGrid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="side-notice-board" id="sideNoticeBoardContainer">
+                <h2>📌 महत्वपूर्ण सूचना / नोटिस बोर्ड</h2>
+                <div class="notice-container" id="publicNoticeBoardContainer">
+                    </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 मातृभूमि सेवा संस्थान. सर्वाधिकार सुरक्षित।</p>
+        <p>पंजीकृत कार्यालय: उत्तर प्रदेश, भारत | जन सेवा ही परमो धर्म:</p>
+        <div class="footer-bank-info">
+            🏦 <b>संस्थान आधिकारिक बैंक खाता विवरण:</b><br>
+            खाता नाम: MATRABHOOMI SEVA SANSTHAN<br>
+            बैंक: STATE BANK OF INDIA (SBI) | खाता संख्या: 45243554345<br>
+            IFSC कोड: SBIN0064993
+        </div>
+    </footer>
+
+    <script>
+        let adminCredentials = { user: "admin", pass: "12345" };
+        let officerCredentials = { user: "officer", pass: "54321" };
+        
+        let sliderImages = [];
+        let currentSlideIndex = 0;
+        let sliderInterval = null;
+        let base64UserDoc = ""; 
+
+        // Initial default Notice Data Array List
+        let globalNotices = [
+            { text: "संस्थान की समस्त 12 कल्याणकारी योजनाओं के ऑफलाइन आवेदन पत्र का नया प्रारूप जारी कर दिया गया है।", url: "#" },
+            { text: "वृद्धाश्रम एवं अनाथालय सहायता योजना के लिए प्रधान द्वारा प्रमाणित पत्र का फॉर्मेट यहाँ से प्राप्त करें।", url: "#" }
+        ];
+
+        let applications = [
+            { id: "MB-1001", name: "राम चंद्र यादव", scheme: "वृद्धा आश्रम सेवा प्रोजेक्ट", phone: "9876543210", docType: "आधार कार्ड", status: "Approved", doc: "44954.png" },
+            { id: "MB-1002", name: "सीमा निषाद", scheme: "गरीब कन्या सामूहिक विवाह", phone: "9123456789", docType: "प्रधान द्वारा प्रमाणित पत्र", status: "Pending", doc: "44952.png" }
+        ];
+
+        const prefilledImages = {
+            'img-env': '44947.png', 'img-edu': '44948.png', 'img-emp': '44949.png',
+            'img-health': '44951.png', 'img-gov': '44953.png', 'img-pub': '44951.png',
+            'img-agri': '44947.png', 'img-marriage': '44952.png', 'img-law': '44950.png',
+            'img-orphan': '44955.png', 'img-oldage': '44954.png', 'img-disaster': '44954.png' 
+        };
+
+        window.onload = function() {
+            loadCredentials(); 
+            initDefaultImages();
+            renderApplicationsTable();
+            startSliderSystem();
+            loadLockedPhotosFromStorage();
+            initNoticeBoardEngine(); // Dynamic notices engine loader
+        };
+
+        function loadCredentials() {
+            const admU = localStorage.getItem('cfg_admin_user');
+            const admP = localStorage.getItem('cfg_admin_pass');
+            const ofcU = localStorage.getItem('cfg_officer_user');
+            const ofcP = localStorage.getItem('cfg_officer_pass');
+
+            if(admU) adminCredentials.user = admU;
+            if(admP) adminCredentials.pass = admP;
+            if(ofcU) officerCredentials.user = ofcU;
+            if(ofcP) officerCredentials.pass = ofcP;
+        }
+
+        function updateAdminCredentials() {
+            const newUser = document.getElementById('new-admin-user').value.trim();
+            const newPass = document.getElementById('new-admin-pass').value.trim();
+            if (!newUser || !newPass) { alert("कृपया दोनों कॉलम भरें।"); return; }
+            adminCredentials.user = newUser;
+            adminCredentials.pass = newPass;
+            localStorage.setItem('cfg_admin_user', newUser);
+            localStorage.setItem('cfg_admin_pass', newPass);
+            alert("🔒 मास्टर एडमिन आईडी-पासवर्ड बदल दिया गया है!");
+        }
+
+        function updateOfficerCredentials() {
+            const newUser = document.getElementById('new-officer-user').value.trim();
+            const newPass = document.getElementById('new-officer-pass').value.trim();
+            if (!newUser || !newPass) { alert("कृपया दोनों कॉलम भरें।"); return; }
+            officerCredentials.user = newUser;
+            officerCredentials.pass = newPass;
+            localStorage.setItem('cfg_officer_user', newUser);
+            localStorage.setItem('cfg_officer_pass', newPass);
+            alert("🔒 ऑफिस अधिकारी लॉगिन विवरण सुरक्षित कर दिया गया है!");
+        }
+
+        // 📌 DYNAMIC UNLIMITED NOTICE BOARD ENGINE LOGIC
+        function initNoticeBoardEngine() {
+            const savedNotices = localStorage.getItem('global_notices_data');
+            if (savedNotices) {
+                globalNotices = JSON.parse(savedNotices);
+            }
+            renderPublicNoticeBoard();
+            renderAdminNoticeFields();
+        }
+
+        function renderPublicNoticeBoard() {
+            const container = document.getElementById('publicNoticeBoardContainer');
+            container.innerHTML = "";
+            if(globalNotices.length === 0) {
+                container.innerHTML = "<p style='font-size:12px; color:#777; text-align:center;'>कोई सक्रिय सूचना नहीं है।</p>";
+                return;
+            }
+            globalNotices.forEach(notice => {
+                const item = document.createElement('div');
+                item.className = "notice-item";
+                item.innerHTML = `
+                    <span class="notice-tag">NEW</span>
+                    <p>${notice.text}</p>
+                    ${notice.url && notice.url !== '#' ? `<a href="${notice.url}" target="_blank" class="notice-download-link">📥 फॉर्म फॉर्मेट डाउनलोड करें</a>` : ''}
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function renderAdminNoticeFields() {
+            const fieldsBox = document.getElementById('adminNoticeListFields');
+            fieldsBox.innerHTML = "";
+            globalNotices.forEach((notice, idx) => {
+                const row = document.createElement('div');
+                row.className = "admin-notice-row";
+                row.innerHTML = `
+                    <span style="font-size:11px; font-weight:bold; color:#b71c1c;">#${idx+1}</span>
+                    <input type="text" value="${notice.text}" placeholder="नोटिस की सूचना लिखें" style="flex:2;" oninput="syncNoticeData(${idx}, 'text', this.value)">
+                    <input type="text" value="${notice.url}" placeholder="डाउनलोड लिंक (Optional)" style="flex:1;" oninput="syncNoticeData(${idx}, 'url', this.value)">
+                    <button class="btn-action-red" onclick="deleteNoticeField(${idx})">❌ हटाएँ</button>
+                `;
+                fieldsBox.appendChild(row);
+            });
+        }
+
+        function addNewNoticeField() {
+            globalNotices.push({ text: "नई सूचना का विवरण यहाँ दर्ज करें...", url: "#" });
+            saveNoticesState();
+            renderAdminNoticeFields();
+            renderPublicNoticeBoard();
+        }
+
+        function syncNoticeData(index, field, value) {
+            globalNotices[index][field] = value;
+            saveNoticesState();
+            renderPublicNoticeBoard(); // Live sync view seamlessly
+        }
+
+        function deleteNoticeField(index) {
+            globalNotices.splice(index, 1);
+            saveNoticesState();
+            renderAdminNoticeFields();
+            renderPublicNoticeBoard();
+        }
+
+        function saveNoticesState() {
+            localStorage.setItem('global_notices_data', JSON.stringify(globalNotices));
+        }
+
+        function loginOfficer() {
+            const u = document.getElementById('officer-user-input').value.trim();
+            const p = document.getElementById('officer-pass-input').value.trim();
+            if (u === officerCredentials.user && p === officerCredentials.pass) {
+                document.getElementById('officerMainDashboard').classList.remove('hidden');
+                document.getElementById('officerLoginFormBox').classList.add('hidden');
+                alert("✔ ऑफिस अधिकारी लॉगिन सफल! आवेदन डेटाबेस खुल गया है।");
+            } else { alert("❌ गलत अधिकारी आईडी या पासवर्ड!"); }
+        }
+
+        function logoutOfficer() {
+            document.getElementById('officerMainDashboard').classList.add('hidden');
+            document.getElementById('officerLoginFormBox').classList.remove('hidden');
+            document.getElementById('officer-user-input').value = "";
+            document.getElementById('officer-pass-input').value = "";
+        }
+
+        function loginMasterAdmin() {
+            const u = document.getElementById('admin-user-input').value.trim();
+            const p = document.getElementById('admin-pass-input').value.trim();
+            if (u === adminCredentials.user && p === adminCredentials.pass) {
+                document.getElementById('masterAdminDashboard').classList.remove('hidden');
+                document.getElementById('masterAdminLoginFormBox').classList.add('hidden');
+                alert("🛠️ मास्टर एडमिन लॉगिन सफल! वेबसाइट लेआउट कस्टमाइज़र सक्रिय है।");
+            } else { alert("❌ गलत मास्टर एडमिन आईडी या पासवर्ड!"); }
+        }
+
+        function logoutMasterAdmin() {
+            document.getElementById('masterAdminDashboard').classList.add('hidden');
+            document.getElementById('masterAdminLoginFormBox').classList.remove('hidden');
+            document.getElementById('admin-user-input').value = "";
+            document.getElementById('admin-pass-input').value = "";
+        }
+
+        function initDefaultImages() {
+            for (let containerId in prefilledImages) {
+                const element = document.getElementById(containerId);
+                if (element) {
+                    element.innerHTML = `<img src="${prefilledImages[containerId]}" alt="Scheme Image">`;
+                }
+            }
+        }
+
+        function openDirectRegistrationForm() {
+            document.querySelectorAll('.view-section').forEach(section => section.classList.add('hidden'));
+            document.querySelectorAll('.side-menu-links button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('view-register').classList.remove('hidden');
+            document.getElementById('btn-tab-register').classList.add('active');
+            document.getElementById('form-scheme-select').value = ""; 
+            window.scrollTo({ top: document.getElementById('view-register').offsetTop - 20, behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('open');
+            document.getElementById('menuBackdrop').classList.toggle('show');
+        }
+
+        function switchView(viewName) {
+            toggleMenu();
+            document.querySelectorAll('.view-section').forEach(section => section.classList.add('hidden'));
+            document.querySelectorAll('.side-menu-links button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            document.getElementById(`btn-tab-${viewName}`).classList.add('active');
+        }
+
+        function directApply(schemeName) {
+            document.querySelectorAll('.view-section').forEach(section => section.classList.add('hidden'));
+            document.querySelectorAll('.side-menu-links button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('view-register').classList.remove('hidden');
+            document.getElementById('btn-tab-register').classList.add('active');
+            document.getElementById('form-scheme-select').value = schemeName;
+            window.scrollTo({ top: document.getElementById('view-register').offsetTop - 20, behavior: 'smooth' });
+        }
+
+        function previewUserDocument(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                base64UserDoc = e.target.result; 
+                document.getElementById('userDocPreviewImg').src = base64UserDoc;
+                document.getElementById('userDocPreviewBox').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadDynamicPhoto(event, targetContainerId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Img = e.target.result;
+                document.getElementById(targetContainerId).innerHTML = `<img src="${base64Img}" alt="Uploaded Image">`;
+                localStorage.setItem(targetContainerId, base64Img);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadLockedPhotosFromStorage() {
+            const keys = ['main-logo-container', 'box-pm', 'box-cm', 'box-district-pres', 'box-sec', 'box-pres', 'box-media-head', 'img-env', 'img-edu', 'img-emp', 'img-health', 'img-gov', 'img-pub', 'img-agri', 'img-marriage', 'img-law', 'img-orphan', 'img-oldage', 'img-disaster'];
+            keys.forEach(key => {
+                const savedImg = localStorage.getItem(key);
+                if (savedImg) {
+                    const element = document.getElementById(key);
+                    if (element) element.innerHTML = `<img src="${savedImg}">`;
+                }
+            });
+        }
+
+        function updateLeaderName(type, value) {
+            const label = document.getElementById(`lbl-${type}`);
+            if (label) { label.innerText = value.trim() !== "" ? value : "माननीय पद धारक"; }
+        }
+
+        function appendSliderPhotos(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Img = e.target.result;
+                    sliderImages.push(base64Img);
+                    updateSliderUI();
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function removeSliderPhoto(index) {
+            sliderImages.splice(index, 1);
+            updateSliderUI();
+        }
+
+        function updateSliderUI() {
+            const mainSlider = document.getElementById('sliderContainer');
+            const thumbsGrid = document.getElementById('adminSliderThumbsGrid');
+            thumbsGrid.innerHTML = "";
+            if (sliderImages.length === 0) {
+                mainSlider.innerHTML = `<div style="color: #555; text-align: center; padding: 20px; font-weight: bold;" id="sliderPlaceholder">[संस्था के कार्यों की फोटो एडमिन पैनल से अपलोड करें, वे यहाँ घूमने लगेंगी]</div>`;
+                return;
+            }
+            mainSlider.innerHTML = "";
+            sliderImages.forEach((imgSrc, index) => {
+                const slide = document.createElement('div');
+                slide.className = `slider-slide ${index === 0 ? 'active' : ''}`;
+                slide.innerHTML = `<img src="${imgSrc}" alt="Slider ${index}">`;
+                mainSlider.appendChild(slide);
+
+                const thumb = document.createElement('div');
+                thumb.className = 'admin-slider-thumb';
+                thumb.innerHTML = `
+                    <img src="${imgSrc}">
+                    <button class="del-btn" onclick="removeSliderPhoto(${index})">×</button>
+                `;
+                thumbsGrid.appendChild(thumb);
+            });
+            currentSlideIndex = 0;
+        }
+
+        function startSliderSystem() {
+            if (sliderInterval) clearInterval(sliderInterval);
+            sliderInterval = setInterval(() => {
+                const slides = document.querySelectorAll('.slider-slide');
+                if (slides.length <= 1) return;
+                slides[currentSlideIndex].classList.remove('active');
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                slides[currentSlideIndex].classList.add('active');
+            }, 3000);
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const scheme = document.getElementById('form-scheme-select').value;
+            const name = document.getElementById('form-user-name').value.trim();
+            const phone = document.getElementById('form-user-phone').value.trim();
+            const docType = document.getElementById('form-doc-type').value;
+
+            const nextId = "MB-" + (1000 + applications.length + 1);
+            const newApp = {
+                id: nextId, name: name, scheme: scheme, phone: phone, docType: docType, status: "Pending",
+                doc: base64UserDoc ? base64UserDoc : "44953.png" 
+            };
+
+            applications.push(newApp);
+            renderApplicationsTable();
+            
+            document.getElementById('schemeApplicationForm').reset();
+            document.getElementById('userDocPreviewBox').classList.add('hidden');
+            base64UserDoc = ""; 
+
+            alert(`🎉 आवेदन सफल रहा!\n\nदस्तावेज़ प्रकार: ${docType}\nआपकी आवेदक आईडी है: ${nextId}\nयह डेटा सीधे अधिकारी पैनल में जांच के लिए सुरक्षित भेज दिया गया है।`);
+            document.getElementById('track-search-id').value = nextId;
+            switchView('track');
+            trackApplicationStatus();
+        }
+
+        function renderApplicationsTable() {
+            const tbody = document.getElementById('adminApplicationsTable');
+            tbody.innerHTML = "";
+            applications.forEach(app => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><b>${app.id}</b></td>
+                    <td>${app.name}</td>
+                    <td><small>${app.scheme}</small></td>
+                    <td>${app.phone}</td>
+                    <td><span style="background:#e3f2fd; padding:3px 6px; border-radius:3px; font-size:12px; font-weight:bold; color:#0d47a1;">${app.docType ? app.docType : 'आधार कार्ड'}</span></td>
+                    <td>${app.doc ? `<a href="${app.doc}" target="_blank"><img src="${app.doc}" class="thumb-preview" onerror="this.src='44953.png'"></a>` : 'नॉट अपलोडेड'}</td>
+                    <td><span class="status-${app.status}">${app.status === 'Pending' ? 'लंबित (Pending)' : app.status === 'Approved' ? 'स्वीकृत (Approved)' : 'अस्वीकृत (Rejected)'}</span></td>
+                    <td>
+                        <button class="btn-approve" onclick="updateStatus('${app.id}', 'Approved')">✔ पास</button>
+                        <button class="btn-reject" onclick="updateStatus('${app.id}', 'Rejected')">✖ फेल</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateStatus(id, newStatus) {
+            const app = applications.find(item => item.id === id);
+            if (app) {
+                app.status = newStatus;
+                renderApplicationsTable();
+                alert(`आवेदक आईडी ${id} का स्टेटस बदलकर ${newStatus === 'Approved' ? 'स्वीकृत' : 'अस्वीकृत'} कर दिया गया है।`);
+            }
+        }
+
+        function trackApplicationStatus() {
+            const searchId = document.getElementById('track-search-id').value.trim().toUpperCase();
+            const resultBox = document.getElementById('trackResultBox');
+            if (!searchId) { alert("कृपया जांचने के लिए कोई वैध आवेदक आईडी लिखें!"); return; }
+
+            const app = applications.find(item => item.id === searchId);
+            resultBox.classList.remove('hidden');
+
+            if (app) {
+                let statusText = app.status === 'Pending' ? '⏳ आपका आवेदन अभी लंबित है। विभागीय समीक्षा जारी है।' : 
+                                 app.status === 'Approved' ? '✅ बधाई हो! आपका आवेदन स्वीकृत (Approved) हो चुका है, सहायता राशि/लाभ जल्द भेजा जाएगा।' : 
+                                 '❌ खेद है, आपका आवेदन निरस्त (Rejected) कर दिया गया है। विवरण के लिए जिला कार्यालय संपर्क करें।';
+                
+                resultBox.innerHTML = `
+                    <h3 style="color:#0d47a1; margin-bottom:10px;">📋 आवेदन विवरण मिला:</h3>
+                    <p><b>आवेदक का नाम:</b> ${app.name}</p>
+                    <p><b>पंजीकृत विभाग:</b> ${app.scheme}</p>
+                    <p><b>मोबाइल नंबर:</b> ${app.phone}</p>
+                    <p><b>जमा दस्तावेज़:</b> ${app.docType ? app.docType : 'आधार कार्ड'}</p>
+                    <p style="margin-top:10px; font-size:14px;"><b>वर्तमान स्थिति:</b> <span class="status-${app.status}">${app.status}</span></p>
+                    <div style="background:#fff; border:1px solid #ddd; padding:10px; margin-top:10px; border-radius:4px; font-weight:bold; color:#333;">${statusText}</div>
+                `;
+            } else {
+                resultBox.innerHTML = `
+                    <div style="color:#b71c1c; font-weight:bold; text-align:center; padding:10px;">
+                        ⚠️ रिकॉर्ड नहीं मिला! कृपया जांचें कि क्या आपने सही आईडी (जैसे: MB-1001) डाली है।
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
