@@ -717,8 +717,8 @@
             fileInputs.forEach(input => {
                 input.addEventListener('change', (e) => {
                     const file = e.target.files[0];
-                    if (file && file.size > 300 * 1024) {
-                        alert("🚨 फ़ाइल बहुत बड़ी है! कृपया 300 KB से छोटी फोटो या दस्तावेज़ अपलोड करें ताकि पोर्टल सुचारू रूप से काम करे।");
+                    if (file && file.size > 10MB * 1024) {
+                        alert("🚨 फ़ाइल बहुत बड़ी है! कृपया 10 MB से छोटी फोटो या दस्तावेज़ अपलोड करें ताकि पोर्टल सुचारू रूप से काम करे।");
                         e.target.value = "";
                     }
                 });
