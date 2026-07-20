@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मातृभूमि सेवा संस्थान - Portal Without Default VIP</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rozha+One&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .hindi-title { font-family: 'Rozha One', serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Top Bar -->
+    <div class="bg-emerald-900 text-white text-xs sm:text-sm py-2 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1">
+            <p>''सेवा, समर्पण, राष्ट्र निर्माण।''</p>
+            <div class="flex gap-4">
+                <span>CIN No: <strong>U88900UP2026NPL247547</strong></span>
+                <span>DARPAN ID: <strong>UP/2026/1080829</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img id="header-logo" src="44712.png" alt="Logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-full border-2 border-emerald-600 shadow">
+                <div>
+                    <h1 id="main-heading" class="text-lg sm:text-2xl font-bold text-emerald-900 hindi-title leading-tight">मातृभूमि सेवा संस्थान</h1>
+                    <p class="text-xs sm:text-sm font-semibold tracking-wide text-amber-700">MATRABHUMI SEVA ASSOCIATION</p>
+                </div>
+            </div>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center gap-2 font-medium text-xs">
+                <button onclick="toggleSchemesModal()" class="bg-emerald-900 text-white px-2.5 py-1.5 rounded-md hover:bg-emerald-800 transition shadow font-bold">
+                    <i class="fa-solid fa-list-check"></i> योजनाएं
+                </button>
+                <button onclick="togglePublicLoginModal()" class="bg-emerald-700 text-white px-2.5 py-1.5 rounded-md hover:bg-emerald-800 transition shadow font-bold">
+                    <i class="fa-solid fa-right-to-bracket"></i> पब्लिक लॉगिन
+                </button>
+                <button onclick="openRegistrationForm('सामान्य आवेदन')" class="bg-amber-600 text-white px-2.5 py-1.5 rounded-md hover:bg-amber-700 transition shadow font-bold">
+                    <i class="fa-solid fa-file-pen"></i> रजिस्ट्रेशन फॉर्म
+                </button>
+                <button onclick="checkOfficerAccess()" class="bg-blue-800 text-white px-2.5 py-1.5 rounded-md hover:bg-blue-900 transition shadow font-bold">
+                    <i class="fa-solid fa-user-tie"></i> Officer Panel
+                </button>
+                <button onclick="checkAdminAccess()" class="bg-red-800 text-white px-2.5 py-1.5 rounded-md hover:bg-red-900 transition shadow font-bold">
+                    <i class="fa-solid fa-lock"></i> Admin Panel
+                </button>
+            </div>
+
+            <!-- Three-Bar Button -->
+            <button id="menu-btn" class="text-3xl text-emerald-900 focus:outline-none p-2">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Three-Bar Dropdown Menu -->
+        <div id="mobile-menu" class="hidden bg-emerald-950 text-white border-t px-6 py-4 space-y-2 shadow-xl max-h-[80vh] overflow-y-auto text-xs">
+            <p class="text-xs text-amber-400 font-bold uppercase tracking-wider border-b border-emerald-800 pb-1">मुख्य मेनू एवं लॉगिन</p>
+            <button onclick="toggleSchemesModal(); mobileMenu.classList.add('hidden');" class="w-full text-left py-2 px-3 bg-emerald-900 rounded hover:bg-emerald-800 transition font-bold text-amber-400">
+                <i class="fa-solid fa-list-check mr-2"></i> सभी योजनाएं देखें
+            </button>
+            <button onclick="togglePublicLoginModal(); mobileMenu.classList.add('hidden');" class="w-full text-left py-2 px-3 bg-emerald-700 rounded hover:bg-emerald-800 transition font-bold text-white mb-1">
+                <i class="fa-solid fa-right-to-bracket mr-2"></i> पब्लिक लॉगिन
+            </button>
+            <button onclick="openRegistrationForm('सामान्य आवेदन'); mobileMenu.classList.add('hidden');" class="w-full text-left py-2 px-3 bg-amber-600 rounded hover:bg-amber-700 transition text-white font-bold mb-2">
+                <i class="fa-solid fa-file-pen mr-2"></i> रजिस्ट्रेशन फॉर्म भरें
+            </button>
+            
+            <p class="text-xs text-amber-400 font-bold uppercase tracking-wider border-b border-emerald-800 pb-1 pt-2">पोर्टल पैनल्स</p>
+            <button onclick="checkOfficerAccess()" class="w-full text-left py-1.5 px-2 bg-blue-900 rounded hover:bg-blue-800 transition text-white font-semibold">
+                <i class="fa-solid fa-user-tie mr-2 text-amber-400"></i> Officer Panel (Login)
+            </button>
+            <button onclick="checkAdminAccess()" class="w-full text-left py-1.5 px-2 bg-red-900 rounded hover:bg-red-800 transition text-white font-semibold">
+                <i class="fa-solid fa-lock mr-2 text-amber-400"></i> Admin Panel (Locked)
+            </button>
+        </div>
+    </header>
+
+    <!-- SCHEMES POPUP MODAL -->
+    <div id="schemes-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto p-6 border-t-8 border-emerald-900 relative">
+            <button onclick="toggleSchemesModal()" class="absolute right-4 top-4 text-gray-500 hover:text-red-700 text-xl font-bold">&times;</button>
+            <h2 class="text-2xl font-bold text-emerald-900 mb-2 hindi-title text-center">संस्था की कल्याणकारी योजनाएं</h2>
+            <p class="text-xs text-gray-600 text-center mb-6">किसी भी योजना के नीचे दिए गए "आवेदन करें" बटन पर क्लिक करें।</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="schemes-popup-grid"></div>
+        </div>
+    </div>
+
+    <!-- PUBLIC LOGIN MODAL -->
+    <div id="public-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 border-t-8 border-emerald-700 relative text-center">
+            <button onclick="togglePublicLoginModal()" class="absolute right-4 top-4 text-gray-500 hover:text-red-700 text-xl font-bold">&times;</button>
+            <h3 class="text-lg font-bold text-emerald-900 mb-2"><i class="fa-solid fa-right-to-bracket"></i> पब्लिक लॉगिन पोर्टल</h3>
+            <p class="text-xs text-gray-600 mb-4">लॉगिन करने के बाद फॉर्म भरें</p>
+            <form onsubmit="handlePublicLogin(event)" class="space-y-3 text-xs text-left">
+                <div>
+                    <label class="block font-semibold mb-1">मोबाइल नंबर / यूजर आईडी:</label>
+                    <input type="text" id="pub-user" required class="w-full p-2 border rounded" placeholder="मोबाइल नंबर">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">पासवर्ड:</label>
+                    <input type="password" id="pub-pass" required class="w-full p-2 border rounded" placeholder="पासवर्ड">
+                </div>
+                <button type="submit" class="w-full bg-emerald-800 text-white py-2 rounded font-bold hover:bg-emerald-900 transition mt-2">लॉगिन करें</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- OFFICER LOGIN MODAL -->
+    <div id="officer-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 border-t-8 border-blue-700 text-center">
+            <h3 class="text-lg font-bold text-blue-900 mb-2"><i class="fa-solid fa-user-tie"></i> Officer Login Security</h3>
+            <p class="text-xs text-gray-600 mb-4">अपनी यूजर आईडी और पासवर्ड दर्ज करें<br>(डिफ़ॉल्ट: <strong>officer</strong> / <strong>123</strong>)</p>
+            <input type="text" id="officer-user-input" placeholder="Officer User ID" class="w-full p-2 border rounded mb-2 text-xs text-center">
+            <input type="password" id="officer-pass-input" placeholder="Officer Password" class="w-full p-2 border rounded mb-3 text-xs text-center">
+            <div class="flex gap-2">
+                <button onclick="verifyOfficerCredentials()" class="w-full bg-blue-800 text-white py-1.5 rounded text-xs font-bold">Login</button>
+                <button onclick="closeOfficerLogin()" class="w-full bg-gray-500 text-white py-1.5 rounded text-xs">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REGISTRATION FORM MODAL -->
+    <div id="registration-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 border-t-8 border-amber-600 relative">
+            <button onclick="toggleRegistrationModal()" class="absolute right-4 top-4 text-gray-500 hover:text-red-700 text-xl font-bold">&times;</button>
+            <h2 class="text-xl font-bold text-emerald-900 mb-2 hindi-title text-center">पब्लिक रजिस्ट्रेशन एवं योजना फॉर्म</h2>
+            <form id="public-form" onsubmit="handlePublicSubmit(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-semibold mb-1">चुनी गई योजना / सेवा:</label>
+                    <input type="text" id="p-service" readonly class="w-full p-2 border rounded bg-gray-100 font-bold text-emerald-900">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">पूरा नाम:</label>
+                    <input type="text" id="p-name" required class="w-full p-2 border rounded" placeholder="अपना नाम लिखें">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">मोबाइल नंबर:</label>
+                    <input type="tel" id="p-phone" required class="w-full p-2 border rounded" placeholder="मोबाइल नंबर">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">डाक्यूमेंट अपलोड करें (PDF/Image):</label>
+                    <input type="file" id="p-doc" required class="w-full p-1 border rounded bg-gray-50">
+                </div>
+                <button type="submit" class="w-full bg-emerald-800 text-white py-2 rounded font-bold hover:bg-emerald-900 transition">फॉर्म जमा करें (Submit)</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 border-t-8 border-red-700 text-center">
+            <h3 class="text-lg font-bold text-red-800 mb-2"><i class="fa-solid fa-lock"></i> Admin Lock Security</h3>
+            <p class="text-xs text-gray-600 mb-4">कृपया एडमिन पासवर्ड दर्ज करें (डिफ़ॉल्ट: 1234)</p>
+            <input type="password" id="admin-pass-input" placeholder="Admin Password" class="w-full p-2 border rounded mb-3 text-xs text-center">
+            <div class="flex gap-2">
+                <button onclick="verifyAdminPassword()" class="w-full bg-red-800 text-white py-1.5 rounded text-xs font-bold">Unlock</button>
+                <button onclick="closeAdminLogin()" class="w-full bg-gray-500 text-white py-1.5 rounded text-xs">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL MODAL -->
+    <div id="admin-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 border-t-8 border-red-700">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 class="text-xl font-bold text-red-800"><i class="fa-solid fa-sliders"></i> Admin Control Panel</h3>
+                <button onclick="toggleAdminPanel()" class="text-gray-500 hover:text-red-700 text-xl font-bold">&times;</button>
+            </div>
+
+            <div class="space-y-4 text-sm">
+                <!-- 1. VIP Add & Delete -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-user-shield text-amber-600"></i> VIP सदस्य जोड़ें या हटाएं (Manage VIP)</h4>
+                    <input type="text" id="vip-name" placeholder="व्यक्ति का पूरा नाम" class="w-full p-2 border rounded mb-2 text-xs">
+                    <select id="vip-designation" class="w-full p-2 border rounded bg-white mb-2 text-xs">
+                        <option value="राष्ट्रीय अध्यक्ष / संस्थापक">राष्ट्रीय अध्यक्ष / संस्थापक</option>
+                        <option value="प्रधानमंत्री (PM)">प्रधानमंत्री (PM)</option>
+                        <option value="मुख्यमंत्री (CM)">मुख्यमंत्री (CM)</option>
+                        <option value="राष्ट्रीय सचिव">राष्ट्रीय सचिव</option>
+                        <option value="सोशल मीडिया प्रभारी">सोशल मीडिया प्रभारी</option>
+                        <option value="जिला अध्यक्ष">जिला अध्यक्ष</option>
+                    </select>
+                    <input type="file" id="vip-img-file" accept="image/*" class="w-full p-1 border rounded bg-white mb-2 text-xs">
+                    <button onclick="addVIPPhoto()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold mb-3 w-full">VIP Photo जोड़ें</button>
+                    <hr class="mb-2">
+                    <label class="block font-semibold mb-1 text-xs text-red-700">मौजूदा VIP सदस्य हटाएं:</label>
+                    <select id="delete-vip-select" class="w-full p-2 border rounded bg-white mb-2 text-xs"></select>
+                    <button onclick="deleteVIP()" class="bg-gray-700 text-white px-3 py-1.5 rounded text-xs font-bold w-full">चयनित VIP हटाएं (Delete)</button>
+                </div>
+
+                <!-- 2. Scheme Add & Delete -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-folder-plus text-amber-600"></i> योजनाएं जोड़ें या हटाएं (Manage Schemes)</h4>
+                    <input type="text" id="admin-scheme-title" placeholder="नई योजना का नाम" class="w-full p-2 border rounded mb-2 text-xs">
+                    <textarea id="admin-scheme-desc" placeholder="योजना का विवरण..." class="w-full p-2 border rounded mb-2 text-xs"></textarea>
+                    <input type="file" id="admin-scheme-file" accept="image/*" class="w-full p-1 border rounded bg-white mb-2 text-xs">
+                    <button onclick="addNewScheme()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold mb-3 w-full">नई योजना जोड़ें</button>
+                    <hr class="mb-2">
+                    <label class="block font-semibold mb-1 text-xs text-red-700">मौजूदा योजना हटाएं:</label>
+                    <select id="delete-scheme-select" class="w-full p-2 border rounded bg-white mb-2 text-xs"></select>
+                    <button onclick="deleteScheme()" class="bg-gray-700 text-white px-3 py-1.5 rounded text-xs font-bold w-full">चयनित योजना हटाएं (Delete)</button>
+                </div>
+
+                <!-- 3. Notice Add & Delete -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-bullhorn text-amber-600"></i> नोटिस बोर्ड मैनेज करें (Manage Notices)</h4>
+                    <input type="text" id="admin-notice-title" placeholder="नोटिस का शीर्षक" class="w-full p-2 border rounded mb-2 text-xs">
+                    <textarea id="admin-notice-desc" placeholder="नोटिस का विवरण..." class="w-full p-2 border rounded mb-2 text-xs"></textarea>
+                    <input type="file" id="admin-notice-file" accept=".pdf,.doc,.docx,.jpg,.png" class="w-full p-1 border rounded bg-white mb-2 text-xs">
+                    <button onclick="addUnlimitedNotice()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold mb-3 w-full">नया नोटिस जोड़ें</button>
+                    <hr class="mb-2">
+                    <label class="block font-semibold mb-1 text-xs text-red-700">मौजूदा नोटिस हटाएं:</label>
+                    <select id="delete-notice-select" class="w-full p-2 border rounded bg-white mb-2 text-xs"></select>
+                    <button onclick="deleteNotice()" class="bg-gray-700 text-white px-3 py-1.5 rounded text-xs font-bold w-full">चयनित नोटिस हटाएं (Delete)</button>
+                </div>
+
+                <!-- 4. Google Map Location Setup -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-map-location-dot text-amber-600"></i> संस्था की Google Map लोकेशन जोड़ें</h4>
+                    <textarea id="admin-map-input" placeholder='<iframe src="..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>' class="w-full p-2 border rounded mb-2 text-xs h-20"></textarea>
+                    <button onclick="saveGoogleMap()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold w-full">मैप लोकेशन सेव करें</button>
+                </div>
+
+                <!-- 5. Social Media Links Setup -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-share-nodes text-amber-600"></i> सोशल मीडिया लिंक्स अपडेट करें</h4>
+                    <div class="space-y-2 text-xs mb-3">
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-facebook text-blue-600 text-base w-5"></i><input type="text" id="social-fb" placeholder="Facebook URL" class="w-full p-1.5 border rounded"></div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-youtube text-red-600 text-base w-5"></i><input type="text" id="social-yt" placeholder="YouTube URL" class="w-full p-1.5 border rounded"></div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-instagram text-pink-600 text-base w-5"></i><input type="text" id="social-ig" placeholder="Instagram URL" class="w-full p-1.5 border rounded"></div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-green-600 text-base w-5"></i><input type="text" id="social-wa" placeholder="WhatsApp URL" class="w-full p-1.5 border rounded"></div>
+                        <div class="flex items-center gap-2"><i class="fa-brands fa-telegram text-blue-400 text-base w-5"></i><input type="text" id="social-tg" placeholder="Telegram URL" class="w-full p-1.5 border rounded"></div>
+                    </div>
+                    <button onclick="saveSocialLinks()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold w-full">सोशल मीडिया लिंक्स सेव करें</button>
+                </div>
+
+                <!-- 6. Change Admin Password -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-key text-amber-600"></i> एडमिन पासवर्ड बदलें</h4>
+                    <input type="password" id="new-admin-pass" placeholder="नया एडमिन पासवर्ड" class="w-full p-2 border rounded mb-2 text-xs">
+                    <button onclick="updateAdminPassword()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold w-full">एडमिन पासवर्ड सेव करें</button>
+                </div>
+
+                <!-- 7. Add New Officer ID & Password -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-user-plus text-amber-600"></i> नया ऑफिसर जोड़ें</h4>
+                    <input type="text" id="new-officer-user" placeholder="ऑफिसर यूजर आईडी" class="w-full p-2 border rounded mb-2 text-xs">
+                    <input type="password" id="new-officer-pass" placeholder="ऑफिसर पासवर्ड" class="w-full p-2 border rounded mb-2 text-xs">
+                    <button onclick="addNewOfficer()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold w-full">ऑफिसर आईडी बनाएं</button>
+                </div>
+
+                <!-- 8. Bank & QR -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-building-columns text-amber-600"></i> बैंक डिटेल और QR Code अपडेट करें</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2 text-xs">
+                        <input type="text" id="edit-bank-name" value="State Bank of India" class="p-2 border rounded" placeholder="Bank Name">
+                        <input type="text" id="edit-ac-no" value="45243554345" class="p-2 border rounded" placeholder="Account Number">
+                        <input type="text" id="edit-ifsc" value="SBIN0064993" class="p-2 border rounded" placeholder="IFSC Code">
+                        <input type="text" id="edit-upi" value="9454391778@ptyes" class="p-2 border rounded" placeholder="UPI ID">
+                    </div>
+                    <input type="file" id="edit-qr-file" accept="image/*" class="w-full p-1 border rounded bg-white mb-2 text-xs">
+                    <button onclick="updateBankAndQR()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold w-full">बैंक और QR Code सेव करें</button>
+                </div>
+
+                <!-- 9. Logo Update -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h4 class="font-bold text-emerald-900 mb-2 text-xs"><i class="fa-solid fa-image text-amber-600"></i> वेबसाइट का लोगो बदलें</h4>
+                    <input type="file" id="logo-file" accept="image/*" class="w-full p-1 border rounded bg-white mb-2 text-xs">
+                    <button onclick="updateWebsiteLogo()" class="bg-red-800 text-white px-3 py-1.5 rounded text-xs font-bold w-full">लोगो अपडेट करें</button>
+                </div>
+            </div>
+            <div class="mt-4 text-right border-t pt-2">
+                <button onclick="toggleAdminPanel()" class="bg-gray-600 text-white px-4 py-1.5 rounded text-xs">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OFFICER PANEL MODAL -->
+    <div id="officer-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 border-t-8 border-blue-700">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 class="text-xl font-bold text-blue-900"><i class="fa-solid fa-user-tie"></i> Officer Panel - पब्लिक आवेदन एवं अप्रूवल / रिजेक्ट</h3>
+                <button onclick="toggleOfficerPanel()" class="text-gray-500 hover:text-blue-700 text-xl font-bold">&times;</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-blue-900 text-white">
+                            <th class="p-2 border">क्र.सं.</th>
+                            <th class="p-2 border">आवेदक का नाम</th>
+                            <th class="p-2 border">मोबाइल नंबर</th>
+                            <th class="p-2 border">चुनी गई योजना</th>
+                            <th class="p-2 border">डाक्यूमेंट</th>
+                            <th class="p-2 border">एक्शन / स्टेटस</th>
+                        </tr>
+                    </thead>
+                    <tbody id="public-data-list">
+                        <!-- फॉर्म सबमिट होने पर डेटा यहाँ आएगा -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 text-right border-t pt-3">
+                <button onclick="toggleOfficerPanel()" class="bg-gray-600 text-white px-4 py-2 rounded text-xs">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIP PHOTOS COLUMN SECTION (डिफ़ॉल्ट नाम हटा दिया गया है, अब केवल एडमिन द्वारा जोड़े गए VIP दिखेंगे) -->
+    <section class="max-w-7xl mx-auto px-4 pt-6">
+        <div class="text-center mb-4">
+            <h3 class="text-lg font-bold text-emerald-900 hindi-title">संस्था एवं संरक्षक गण (VIP Column)</h3>
+            <div class="w-20 h-1 bg-amber-600 mx-auto mt-1"></div>
+        </div>
+        <div id="vip-photos-container" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4 text-center">
+            <!-- Dynamic VIP Photos loaded here -->
+        </div>
+    </section>
+
+    <!-- SLIDER BAR SECTION -->
+    <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="relative w-full h-56 sm:h-80 rounded-xl overflow-hidden shadow-2xl border-4 border-emerald-900 bg-gray-900">
+            <div id="slider-container" class="relative w-full h-full">
+                <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-100 flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('44751.jpg');">
+                    <div class="text-center text-white px-4">
+                        <h2 class="text-xl sm:text-3xl font-bold hindi-title">मातृभूमि सेवा संस्थान - सेवा ही संकल्प</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOTICE BOARD SECTION -->
+    <section class="max-w-5xl mx-auto px-4 py-4">
+        <div class="bg-white rounded-xl shadow-xl border-2 border-emerald-800 overflow-hidden">
+            <div class="bg-emerald-900 text-white px-4 py-3 font-bold flex justify-between items-center text-sm">
+                <span><i class="fa-solid fa-bullhorn text-amber-400 mr-2"></i> नवीनतम नोटिस बोर्ड (Notice Board)</span>
+                <span class="text-xs bg-amber-600 px-2 py-0.5 rounded text-white font-semibold">Live Updates</span>
+            </div>
+            <div id="notice-board-container" class="p-4 bg-emerald-50 max-h-60 overflow-y-auto space-y-3 text-xs">
+                <div class="bg-white p-3 rounded shadow-sm border-l-4 border-amber-600 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-emerald-900">🌿 वृहद वृक्षारोपण अभियान का आयोजन</p>
+                        <p class="text-gray-600 mt-0.5">संस्था द्वारा आगामी रविवार को क्षेत्र में फलदार पौधे वितरित किए जाएंगे।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GOOGLE MAP LOCATION SECTION -->
+    <section class="max-w-5xl mx-auto px-4 py-4">
+        <div class="bg-white rounded-xl shadow-xl border-2 border-emerald-800 overflow-hidden">
+            <div class="bg-emerald-900 text-white px-4 py-3 font-bold flex justify-between items-center text-sm">
+                <span><i class="fa-solid fa-map-location-dot text-amber-400 mr-2"></i> संस्था की लोकेशन (Google Map Location)</span>
+                <span class="text-xs bg-amber-600 px-2 py-0.5 rounded text-white font-semibold">Our Office</span>
+            </div>
+            <div id="google-map-container" class="p-2 bg-emerald-50 w-full h-72 flex items-center justify-center">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.395724219468!2d80.9461595754378!3d26.846708376686125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd088e5d0f1f%3A0x8797f1f0a28f8045!2sUttar%20Pradesh%20Secretariat!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- BANK DETAILS & QR CODE SECTION -->
+    <section class="max-w-5xl mx-auto px-4 py-6">
+        <div class="bg-emerald-900 text-white rounded-xl shadow-xl p-6 border-t-4 border-amber-500">
+            <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-building-columns text-amber-400"></i> संस्था की बैंक विवरण एवं QR कोड (सहयोग हेतु)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-2 text-xs bg-emerald-950 p-4 rounded-lg border border-emerald-800">
+                    <p><strong>Bank Name:</strong> <span id="lbl-bank">State Bank of India</span></p>
+                    <p><strong>Account No:</strong> <span id="lbl-ac">45243554345</span></p>
+                    <p><strong>IFSC Code:</strong> <span id="lbl-ifsc">SBIN0064993</span></p>
+                    <p><strong>UPI ID:</strong> <span id="lbl-upi">9454391778@ptyes</span></p>
+                </div>
+                <div class="text-center bg-white text-gray-800 p-4 rounded-lg shadow flex flex-col items-center">
+                    <p class="text-xs font-bold text-emerald-900 mb-2">स्कैन करें और सहयोग करें (QR Code)</p>
+                    <img id="display-qr-img" src="44712.png" alt="QR Code" class="w-32 h-32 object-contain border p-1 rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Social Media Icons -->
+    <footer class="bg-gray-900 text-gray-300 py-6 px-4 text-xs text-center">
+        <div id="footer-social-icons" class="flex justify-center gap-4 mb-3 text-lg"></div>
+        <p>&copy; 2026 Matrabhumi Seva Association. All Rights Reserved.</p>
+        <p class="text-amber-500 mt-1">राष्ट्रीय अध्यक्ष/संस्थापक : नीरज कुमार निषाद (9454391778)</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const defaultSchemes = [
+            {title: "पर्यावरण का क्षेत्र", desc: "फलदार व छायादार वृक्षारोपण एवं पौधों का रख-रखाव।", img: "44751.jpg"},
+            {title: "शिक्षा का क्षेत्र", desc: "क्षेत्रीय बच्चों की उत्तम शिक्षा का निःशुल्क प्रबंधन व कम्प्यूटर शिक्षा।", img: "44958.jpg"},
+            {title: "रोजगार का क्षेत्र", desc: "युवाओं का कौशल विकास व रोजगार के अवसर प्रदान करना।", img: "44751.jpg"},
+            {title: "स्वास्थ्य का क्षेत्र", desc: "स्वास्थ्य शिविर का आयोजन व आँखों का ऑपरेशन जैसी सहायता।", img: "44958.jpg"},
+            {title: "सरकारी योजनायें", desc: "सरकारी योजनाओं को हर जरूरतमंद तक पहुँचाना व लाभान्वित कराना।", img: "44751.jpg"},
+            {title: "सार्वजनिक स्थान", desc: "सार्वजनिक स्थानों पर बैठने व वाटर कूलर आदि की स्थापना।", img: "44958.jpg"},
+            {title: "कृषि का क्षेत्र", desc: "किसानों हेतु सिंचाई व कृषि उपकरण आदि का निःशुल्क प्रबंधन।", img: "44751.jpg"},
+            {title: "कन्या विवाह", desc: "गरीब परिवारों की कन्याओं का सामूहिक विवाह व अन्य धार्मिक कार्य।", img: "44958.jpg"},
+            {title: "कानूनी सहायता", desc: "प्रत्येक नागरिक के मूल अधिकारों की रक्षा व जागरूकता।", img: "44751.jpg"},
+            {title: "अनाथ आश्रम", desc: "अनाथ आलय की स्थापना एवं संचालन करना।", img: "44958.jpg"},
+            {title: "वृद्धा आश्रम", desc: "बुजुर्गों के आश्रम व रहन सहन की व्यवस्था एवं प्रबंधन।", img: "44958.jpg"},
+            {title: "प्राकृतिक आपदा", desc: "प्राकृतिक आपदाओं से क्षतिग्रस्तों की सम्भव सहायता करना।", img: "44751.jpg"}
+        ];
+
+        function toggleSchemesModal() {
+            let modal = document.getElementById('schemes-modal');
+            let grid = document.getElementById('schemes-popup-grid');
+            grid.innerHTML = '';
+
+            let allSchemes = JSON.parse(localStorage.getItem('custom_schemes_list') || JSON.stringify(defaultSchemes));
+            
+            allSchemes.forEach(sch => {
+                let d = document.createElement('div');
+                d.className = "bg-white rounded-lg shadow border border-emerald-100 overflow-hidden flex flex-col justify-between";
+                d.innerHTML = `
+                    <div>
+                        <img src="${sch.img}" alt="Scheme" class="w-full h-32 object-cover border-b">
+                        <div class="p-2">
+                            <h4 class="font-bold text-xs text-emerald-900 mb-1">${sch.title}</h4>
+                            <p class="text-[10px] text-gray-700">${sch.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 pt-0">
+                        <button onclick="toggleSchemesModal(); openRegistrationForm('${sch.title}')" class="w-full text-center bg-amber-600 text-white py-1 rounded font-bold hover:bg-amber-700 text-[11px]">आवेदन करें</button>
+                    </div>
+                `;
+                grid.appendChild(d);
+            });
+
+            modal.classList.toggle('hidden');
+            mobileMenu.classList.add('hidden');
+        }
+
+        // --- VIP Add & Delete ---
+        function addVIPPhoto() {
+            let name = document.getElementById('vip-name').value;
+            let designation = document.getElementById('vip-designation').value;
+            let fileInput = document.getElementById('vip-img-file');
+            if(!name) { alert('कृपया नाम भरें!'); return; }
+
+            let defaultImg = '44712.png';
+            let vipData = JSON.parse(localStorage.getItem('vip_list') || '[]');
+
+            if(fileInput.files.length > 0) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    vipData.push({ name, designation, img: e.target.result });
+                    localStorage.setItem('vip_list', JSON.stringify(vipData));
+                    alert('VIP सदस्य सफलतापूर्वक जोड़ दिया गया है!');
+                    location.reload();
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                vipData.push({ name, designation, img: defaultImg });
+                localStorage.setItem('vip_list', JSON.stringify(vipData));
+                alert('VIP सदस्य सफलतापूर्वक जोड़ दिया गया है!');
+                location.reload();
+            }
+        }
+
+        function populateDeleteDropdowns() {
+            let vipSelect = document.getElementById('delete-vip-select');
+            vipSelect.innerHTML = '<option value="">-- हटाने के लिए VIP चुनें --</option>';
+            let vipData = JSON.parse(localStorage.getItem('vip_list') || '[]');
+            vipData.forEach((v, idx) => {
+                let opt = document.createElement('option');
+                opt.value = idx;
+                opt.innerText = `${v.name} (${v.designation})`;
+                vipSelect.appendChild(opt);
+            });
+
+            let schemeSelect = document.getElementById('delete-scheme-select');
+            schemeSelect.innerHTML = '<option value="">-- हटाने के लिए योजना चुनें --</option>';
+            let allSchemes = JSON.parse(localStorage.getItem('custom_schemes_list') || JSON.stringify(defaultSchemes));
+            allSchemes.forEach((s, idx) => {
+                let opt = document.createElement('option');
+                opt.value = idx;
+                opt.innerText = s.title;
+                schemeSelect.appendChild(opt);
+            });
+
+            let noticeSelect = document.getElementById('delete-notice-select');
+            noticeSelect.innerHTML = '<option value="">-- हटाने के लिए नोटिस चुनें --</option>';
+            let notices = JSON.parse(localStorage.getItem('unlimited_notices') || '[]');
+            notices.forEach((n, idx) => {
+                let opt = document.createElement('option');
+                opt.value = idx;
+                opt.innerText = n.title;
+                noticeSelect.appendChild(opt);
+            });
+        }
+
+        function deleteVIP() {
+            let idx = document.getElementById('delete-vip-select').value;
+            if(idx === "") { alert('कृपया हटाने के लिए VIP चुनें!'); return; }
+            let vipData = JSON.parse(localStorage.getItem('vip_list') || '[]');
+            vipData.splice(idx, 1);
+            localStorage.setItem('vip_list', JSON.stringify(vipData));
+            alert('VIP सदस्य हटा दिया गया है!');
+            location.reload();
+        }
+
+        // --- Scheme Add & Delete ---
+        function addNewScheme() {
+            let title = document.getElementById('admin-scheme-title').value;
+            let desc = document.getElementById('admin-scheme-desc').value;
+            let fileInput = document.getElementById('admin-scheme-file');
+            if(!title) { alert('कृपया योजना का नाम भरें!'); return; }
+
+            let defaultImg = '44751.jpg';
+            let allSchemes = JSON.parse(localStorage.getItem('custom_schemes_list') || JSON.stringify(defaultSchemes));
+
+            if(fileInput.files.length > 0) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    allSchemes.push({ title, desc, img: e.target.result });
+                    localStorage.setItem('custom_schemes_list', JSON.stringify(allSchemes));
+                    alert('नई योजना जोड़ दी गई है!');
+                    location.reload();
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                allSchemes.push({ title, desc, img: defaultImg });
+                localStorage.setItem('custom_schemes_list', JSON.stringify(allSchemes));
+                alert('नई योजना जोड़ दी गई है!');
+                location.reload();
+            }
+        }
+
+        function deleteScheme() {
+            let idx = document.getElementById('delete-scheme-select').value;
+            if(idx === "") { alert('कृपया हटाने के लिए योजना चुनें!'); return; }
+            let allSchemes = JSON.parse(localStorage.getItem('custom_schemes_list') || JSON.stringify(defaultSchemes));
+            allSchemes.splice(idx, 1);
+            localStorage.setItem('custom_schemes_list', JSON.stringify(allSchemes));
+            alert('योजना हटा दी गई है!');
+            location.reload();
+        }
+
+        // --- Notice Add & Delete ---
+        function addUnlimitedNotice() {
+            let title = document.getElementById('admin-notice-title').value;
+            let desc = document.getElementById('admin-notice-desc').value;
+            let fileInput = document.getElementById('admin-notice-file');
+            if(!title) { alert('कृपया नोटिस का शीर्षक भरें!'); return; }
+
+            let fileName = fileInput.files.length > 0 ? fileInput.files[0].name : "Notice.pdf";
+            let notices = JSON.parse(localStorage.getItem('unlimited_notices') || '[]');
+            notices.push({ title, desc, fileName });
+            localStorage.setItem('unlimited_notices', JSON.stringify(notices));
+
+            alert('नया नोटिस पब्लिश कर दिया गया है!');
+            location.reload();
+        }
+
+        function deleteNotice() {
+            let idx = document.getElementById('delete-notice-select').value;
+            if(idx === "") { alert('कृपया हटाने के लिए नोटिस चुनें!'); return; }
+            let notices = JSON.parse(localStorage.getItem('unlimited_notices') || '[]');
+            notices.splice(idx, 1);
+            localStorage.setItem('unlimited_notices', JSON.stringify(notices));
+            alert('नोटिस हटा दिया गया है!');
+            location.reload();
+        }
+
+        function saveAll6Sliders() {
+            let sliderData = [];
+            let count = 0;
+            let fileCountTotal = getFileCount();
+            if(fileCountTotal === 0) { alert('कम से कम एक फोटो चुनें!'); return; }
+
+            for(let i = 1; i <= 6; i++) {
+                let title = document.getElementById(`s-title-${i}`).value;
+                let file = document.getElementById(`s-file-${i}`);
+                if(file.files.length > 0) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        sliderData.push({ title: title || 'मातृभूमि सेवा संस्थान', img: e.target.result });
+                        count++;
+                        if(count === fileCountTotal) {
+                            localStorage.setItem('slider_list', JSON.stringify(sliderData));
+                            alert('सभी स्लाइडर फोटो सेव हो गई हैं!');
+                            location.reload();
+                        }
+                    }
+                    reader.readAsDataURL(file.files[0]);
+                }
+            }
+        }
+
+        function getFileCount() {
+            let c = 0;
+            for(let i = 1; i <= 6; i++) {
+                if(document.getElementById(`s-file-${i}`).files.length > 0) c++;
+            }
+            return c;
+        }
+
+        function saveGoogleMap() {
+            let mapHtml = document.getElementById('admin-map-input').value;
+            if(!mapHtml) { alert('मैप कोड दर्ज करें!'); return; }
+            localStorage.setItem('google_map_embed', mapHtml);
+            alert('मैप लोकेशन सेव हो गई है!');
+            location.reload();
+        }
+
+        function loadGoogleMap() {
+            let mapHtml = localStorage.getItem('google_map_embed');
+            if(mapHtml) {
+                document.getElementById('google-map-container').innerHTML = mapHtml;
+                document.getElementById('admin-map-input').value = mapHtml;
+            }
+        }
+
+        function saveSocialLinks() {
+            let socialData = {
+                fb: document.getElementById('social-fb').value,
+                yt: document.getElementById('social-yt').value,
+                ig: document.getElementById('social-ig').value,
+                wa: document.getElementById('social-wa').value,
+                tg: document.getElementById('social-tg').value
+            };
+            localStorage.setItem('social_links', JSON.stringify(socialData));
+            alert('सोशल मीडिया लिंक्स सेव हो गए हैं!');
+            toggleAdminPanel();
+            loadSocialIcons();
+        }
+
+        function loadSocialIcons() {
+            let links = JSON.parse(localStorage.getItem('social_links') || '{}');
+            let container = document.getElementById('footer-social-icons');
+            container.innerHTML = '';
+            let icons = [
+                {icon: 'fa-facebook text-blue-500', url: links.fb},
+                {icon: 'fa-youtube text-red-500', url: links.yt},
+                {icon: 'fa-instagram text-pink-500', url: links.ig},
+                {icon: 'fa-whatsapp text-green-500', url: links.wa},
+                {icon: 'fa-telegram text-sky-400', url: links.tg}
+            ];
+            icons.forEach(item => {
+                if(item.url) {
+                    let a = document.createElement('a');
+                    a.href = item.url;
+                    a.target = "_blank";
+                    a.className = "w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition";
+                    a.innerHTML = `<i class="fa-brands ${item.icon}"></i>`;
+                    container.appendChild(a);
+                }
+            });
+            if(links.fb) document.getElementById('social-fb').value = links.fb;
+            if(links.yt) document.getElementById('social-yt').value = links.yt;
+            if(links.ig) document.getElementById('social-ig').value = links.ig;
+            if(links.wa) document.getElementById('social-wa').value = links.wa;
+            if(links.tg) document.getElementById('social-tg').value = links.tg;
+        }
+
+        function updateBankAndQR() {
+            let bName = document.getElementById('edit-bank-name').value;
+            let acNo = document.getElementById('edit-ac-no').value;
+            let ifsc = document.getElementById('edit-ifsc').value;
+            let upi = document.getElementById('edit-upi').value;
+            localStorage.setItem('bank_name', bName);
+            localStorage.setItem('bank_ac', acNo);
+            localStorage.setItem('bank_ifsc', ifsc);
+            localStorage.setItem('bank_upi', upi);
+            alert('बैंक विवरण सेव हो गए हैं!');
+            toggleAdminPanel();
+        }
+
+        function updateWebsiteLogo() {
+            let fileInput = document.getElementById('logo-file');
+            if(fileInput.files.length === 0) return;
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('site_logo', e.target.result);
+                document.getElementById('header-logo').src = e.target.result;
+                alert('लोगो अपडेट हो गया है!');
+                toggleAdminPanel();
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function togglePublicLoginModal() { document.getElementById('public-login-modal').classList.toggle('hidden'); mobileMenu.classList.add('hidden'); }
+        function handlePublicLogin(event) { event.preventDefault(); alert('पब्लिक लॉगिन सफल रहा!'); togglePublicLoginModal(); openRegistrationForm('पब्लिक लॉगिन आवेदन'); }
+        function openRegistrationForm(schemeName) { document.getElementById('p-service').value = schemeName; document.getElementById('registration-modal').classList.remove('hidden'); }
+        function toggleRegistrationModal() { document.getElementById('registration-modal').classList.toggle('hidden'); }
+        function checkOfficerAccess() { document.getElementById('officer-login-modal').classList.remove('hidden'); mobileMenu.classList.add('hidden'); }
+        function closeOfficerLogin() { document.getElementById('officer-login-modal').classList.add('hidden'); }
+        
+        function verifyOfficerCredentials() {
+            let u = document.getElementById('officer-user-input').value;
+            let p = document.getElementById('officer-pass-input').value;
+            let officers = JSON.parse(localStorage.getItem('officers_list') || JSON.stringify([{user: "officer", pass: "123"}]));
+            let found = officers.find(off => off.user === u && off.pass === p);
+            if(found) { closeOfficerLogin(); toggleOfficerPanel(); loadOfficerPanelData(); document.getElementById('officer-user-input').value = ''; document.getElementById('officer-pass-input').value = ''; }
+            else { alert('गलत यूजर आईडी या पासवर्ड!'); }
+        }
+
+        function addNewOfficer() {
+            let user = document.getElementById('new-officer-user').value;
+            let pass = document.getElementById('new-officer-pass').value;
+            if(!user || !pass) { alert('यूजर आईडी और पासवर्ड भरें!'); return; }
+            let officers = JSON.parse(localStorage.getItem('officers_list') || JSON.stringify([{user: "officer", pass: "123"}]));
+            officers.push({ user, pass });
+            localStorage.setItem('officers_list', JSON.stringify(officers));
+            alert('नया ऑफिसर जोड़ दिया गया है!');
+            document.getElementById('new-officer-user').value = ''; document.getElementById('new-officer-pass').value = '';
+        }
+
+        function toggleOfficerPanel() { document.getElementById('officer-modal').classList.toggle('hidden'); mobileMenu.classList.add('hidden'); }
+        function checkAdminAccess() { document.getElementById('admin-login-modal').classList.remove('hidden'); mobileMenu.classList.add('hidden'); }
+        function closeAdminLogin() { document.getElementById('admin-login-modal').classList.add('hidden'); }
+
+        function verifyAdminPassword() {
+            let passInput = document.getElementById('admin-pass-input').value;
+            let currentAdminPass = localStorage.getItem('admin_password') || "1234";
+            if(passInput === currentAdminPass) { closeAdminLogin(); toggleAdminPanel(); populateDeleteDropdowns(); document.getElementById('admin-pass-input').value = ''; }
+            else { alert('गलत एडमिन पासवर्ड!'); }
+        }
+
+        function updateAdminPassword() {
+            let newPass = document.getElementById('new-admin-pass').value;
+            if(!newPass) { alert('नया पासवर्ड भरें!'); return; }
+            localStorage.setItem('admin_password', newPass);
+            alert('एडमिन पासवर्ड बदल दिया गया है!');
+            document.getElementById('new-admin-pass').value = '';
+        }
+
+        function toggleAdminPanel() { document.getElementById('admin-modal').classList.toggle('hidden'); }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let savedLogo = localStorage.getItem('site_logo');
+            if(savedLogo) document.getElementById('header-logo').src = savedLogo;
+
+            if(localStorage.getItem('bank_name')) document.getElementById('lbl-bank').innerText = localStorage.getItem('bank_name');
+            if(localStorage.getItem('bank_ac')) document.getElementById('lbl-ac').innerText = localStorage.getItem('bank_ac');
+            if(localStorage.getItem('bank_ifsc')) document.getElementById('lbl-ifsc').innerText = localStorage.getItem('bank_ifsc');
+            if(localStorage.getItem('bank_upi')) document.getElementById('lbl-upi').innerText = localStorage.getItem('bank_upi');
+            let savedQR = localStorage.getItem('site_qr');
+            if(savedQR) document.getElementById('display-qr-img').src = savedQR;
+
+            // Load Saved VIPs (केवल एडमिन द्वारा जोड़े गए VIP दिखेंगे)
+            let savedVIPs = JSON.parse(localStorage.getItem('vip_list') || '[]');
+            let vipContainer = document.getElementById('vip-photos-container');
+            vipContainer.innerHTML = '';
+            savedVIPs.forEach(vip => {
+                let div = document.createElement('div');
+                div.className = "bg-white p-2 rounded-lg shadow border";
+                div.innerHTML = `
+                    <img src="${vip.img}" alt="VIP" class="w-20 h-20 mx-auto rounded-full object-cover border-2 border-amber-600 shadow">
+                    <p class="font-bold text-xs mt-2 text-emerald-900">${vip.name}</p>
+                    <p class="text-[10px] text-gray-500 font-semibold">${vip.designation}</p>
+                `;
+                vipContainer.appendChild(div);
+            });
+
+            let savedSliders = JSON.parse(localStorage.getItem('slider_list') || '[]');
+            if(savedSliders.length > 0) {
+                let sliderContainer = document.getElementById('slider-container');
+                sliderContainer.innerHTML = '';
+                savedSliders.forEach((slide, idx) => {
+                    let slideDiv = document.createElement('div');
+                    slideDiv.className = `slide absolute inset-0 transition-opacity duration-1000 ${idx === 0 ? 'opacity-100' : 'opacity-0'} flex items-center justify-center bg-cover bg-center`;
+                    slideDiv.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${slide.img}')`;
+                    slideDiv.innerHTML = `<div class="text-center text-white px-4"><h2 class="text-xl sm:text-3xl font-bold hindi-title">${slide.title}</h2></div>`;
+                    sliderContainer.appendChild(slideDiv);
+                });
+            }
+
+            let savedNotices = JSON.parse(localStorage.getItem('unlimited_notices') || '[]');
+            let noticeContainer = document.getElementById('notice-board-container');
+            savedNotices.forEach(n => {
+                let div = document.createElement('div');
+                div.className = "bg-white p-3 rounded shadow-sm border-l-4 border-amber-600 flex justify-between items-center";
+                div.innerHTML = `
+                    <div>
+                        <p class="font-bold text-emerald-900">${n.title}</p>
+                        <p class="text-gray-600 mt-0.5">${n.desc}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] text-gray-400 block">${n.fileName ? n.fileName : ''}</span>
+                        <a href="#" class="text-blue-600 underline font-semibold text-[11px]"><i class="fa-solid fa-file-pdf"></i> View File</a>
+                    </div>
+                `;
+                noticeContainer.prepend(div);
+            });
+
+            loadGoogleMap();
+            loadSocialIcons();
+            loadOfficerPanelData();
+        });
+
+        function handlePublicSubmit(event) {
+            event.preventDefault();
+            let name = document.getElementById('p-name').value;
+            let phone = document.getElementById('p-phone').value;
+            let service = document.getElementById('p-service').value;
+            let docInput = document.getElementById('p-doc');
+            let docName = docInput.files.length > 0 ? docInput.files[0].name : "Document.pdf";
+
+            let apps = JSON.parse(localStorage.getItem('public_applications') || '[]');
+            apps.push({ id: Date.now(), name, phone, service, docName, status: 'Pending' });
+            localStorage.setItem('public_applications', JSON.stringify(apps));
+
+            alert('आपका आवेदन सफलतापूर्वक जमा हो गया है!');
+            document.getElementById('public-form').reset();
+            toggleRegistrationModal();
+            loadOfficerPanelData();
+        }
+
+        function loadOfficerPanelData() {
+            let apps = JSON.parse(localStorage.getItem('public_applications') || '[]');
+            let tbody = document.getElementById('public-data-list');
+            tbody.innerHTML = '';
+            if(apps.length === 0) { tbody.innerHTML = `<tr><td colspan="6" class="text-center p-4 text-gray-500">अभी कोई नया आवेदन प्राप्त नहीं हुआ है।</td></tr>`; return; }
+
+            apps.forEach((app, index) => {
+                let badgeClass = "bg-amber-100 text-amber-800";
+                if(app.status === 'Approved') badgeClass = "bg-green-100 text-green-800";
+                if(app.status === 'Rejected') badgeClass = "bg-red-100 text-red-800";
+
+                let tr = document.createElement('tr');
+                tr.className = "border-b hover:bg-gray-50";
+                tr.innerHTML = `
+                    <td class="p-2.5 border">${index + 1}</td>
+                    <td class="p-2.5 border font-semibold">${app.name}</td>
+                    <td class="p-2.5 border">${app.phone}</td>
+                    <td class="p-2.5 border font-bold text-emerald-900">${app.service}</td>
+                    <td class="p-2.5 border"><a href="#" class="text-blue-600 underline font-semibold"><i class="fa-solid fa-file-lines"></i> ${app.docName}</a></td>
+                    <td class="p-2.5 border">
+                        <span class="${badgeClass} px-2 py-0.5 rounded font-bold mr-1">${app.status}</span>
+                        <button onclick="updateStatus(${app.id}, 'Approved')" class="bg-green-700 text-white px-2 py-1 rounded font-bold hover:bg-green-800 text-[10px] mr-1"><i class="fa-solid fa-check"></i> Approve</button>
+                        <button onclick="updateStatus(${app.id}, 'Rejected')" class="bg-red-700 text-white px-2 py-1 rounded font-bold hover:bg-red-800 text-[10px]"><i class="fa-solid fa-xmark"></i> Reject</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateStatus(id, newStatus) {
+            let apps = JSON.parse(localStorage.getItem('public_applications') || '[]');
+            apps = apps.map(app => { if(app.id === id) app.status = newStatus; return app; });
+            localStorage.setItem('public_applications', JSON.stringify(apps));
+            loadOfficerPanelData();
+            alert(`आवेदन ${newStatus} कर दिया गया है!`);
+        }
+
+        let currentSlide = 0;
+        function nextSlide() {
+            let slides = document.querySelectorAll('.slide');
+            if(slides.length > 1) {
+                slides.forEach((slide, i) => { slide.style.opacity = (i === currentSlide) ? '1' : '0'; });
+                currentSlide = (currentSlide + 1) % slides.length;
+            }
+        }
+        setInterval(nextSlide, 4000);
+    </script>
+</body>
+</html>
